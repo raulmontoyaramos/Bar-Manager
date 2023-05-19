@@ -28,7 +28,7 @@ public class Producto {
 
 	private String nombre;
 	private float precio;
-	// private ???? foto;
+	private String foto;
 	private boolean esFrio;
 
 	public Producto(String nombre, float precio, boolean esFrio) {

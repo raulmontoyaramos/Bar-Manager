@@ -49,7 +49,7 @@ public abstract class DAO {
 			String usuario = lector.readLine();
 			String password = lector.readLine();
 
-			connection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + puerto + "/" + "petsdam",
+			connection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + puerto + "/" + nombreBD,
 					usuario, password);
 			return connection.createStatement();
 		} catch (IOException | SQLException e) {
