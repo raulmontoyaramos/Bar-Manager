@@ -22,7 +22,7 @@ public class Main {
 //		boolean salir = true;
 //		byte opcion = -1;
 
-//		Trabajador trabajador = new Trabajador("Trabajador", null, null, opcion);
+		Trabajador trabajador = new Trabajador("CURRANTE@", "Trabajador", "123123", 653813791);
 //		Gerente jefe = new Gerente("Jefe", null, null, 0);
 		Negocio tablon = new Negocio("El tablon", "nsdjfdsnk", "c/ Juan Latino", "tablon@", 65363767, Comidas.CARNES);
 
@@ -35,26 +35,16 @@ public class Main {
 				System.out.println(negocios.get(i) + " : ");
 			}
 			System.out.println("");
+			DAO.insert("Trabajador", trabajador.columnas());
+			HashMap<String, Object> columnasTrabajadorNegocio = new HashMap<String, Object>();
+			columnasTrabajadorNegocio.put("email_trabajador", trabajador.getEmail());
+			columnasTrabajadorNegocio.put("CIF_negocio", tablon.getCif());
+			DAO.insert("Trabajador_Negocio", columnasTrabajadorNegocio);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-//		System.out.println("Dime email");
-//		String email = sc.nextLine();
-//		System.out.println("Dime contraseña");
-//		String pass = sc.nextLine();
-//		System.out.println("Dime nombre");
-//		String nombre = sc.nextLine();
-//		System.out.println("Dime teléfono");
-//		int telefono = Integer.parseInt(sc.nextLine());
-//
-//		HashMap<String, Object> columnas = new HashMap<String, Object>();
-//		columnas.put("email", email);
-//		columnas.put("nombre", nombre);
-//		columnas.put("password", pass);
-//		columnas.put("telefono", telefono);
-//		DAO.insert("cliente", columnas);
 
 		// DEBERÍA HACER QUE LA CLASE MENÚ NO EXTIENDA DEL MENÚ DEL DÍA? DE ESA FORMA
 		// AMBOS TENDRÍAN DIFERENTES ARRAYLIST DE CADA PRODUCTO Y SE PODRÍA EDITAR UN

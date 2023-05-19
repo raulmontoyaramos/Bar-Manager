@@ -49,7 +49,7 @@ CREATE TABLE Negocio (
 CREATE TABLE Trabajador (
     email VARCHAR(255) PRIMARY KEY,
     nombre VARCHAR(255),
-    contraseña VARCHAR(255),
+    contrasenia VARCHAR(255),
     telefono INT,
     FOREIGN KEY (email)
         REFERENCES Negocio (CIF)
