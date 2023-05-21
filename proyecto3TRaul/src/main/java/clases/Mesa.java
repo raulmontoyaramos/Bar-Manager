@@ -1,24 +1,26 @@
 package clases;
 
+import java.util.HashMap;
+
 public class Mesa {
 
-	private short id;
+	private short numero;
 	private byte capacidad;
 	private boolean estaOcupada;
 
-	public Mesa(short id, byte capacidad, boolean estaOcupada) {
+	public Mesa(short numero, byte capacidad, boolean estaOcupada) {
 		super();
-		this.id = id;
+		this.numero = numero;
 		this.capacidad = capacidad;
 		this.estaOcupada = estaOcupada;
 	}
 
-	public short getId() {
-		return id;
+	public short getNumero() {
+		return numero;
 	}
 
-	public void setId(short id) {
-		this.id = id;
+	public void setNumero(short numero) {
+		this.numero = numero;
 	}
 
 	public byte getCapacidad() {
@@ -37,9 +39,18 @@ public class Mesa {
 		this.estaOcupada = estaOcupada;
 	}
 
+	public HashMap<String, Object> columnas() {
+		HashMap<String, Object> columnas = new HashMap<String, Object>();
+		columnas.put("numero", numero);
+		columnas.put("capacidad", capacidad);
+		columnas.put("estaOcupada", estaOcupada);
+
+		return columnas;
+	}
+	
 	@Override
 	public String toString() {
-		return "\n\t -Id: " + this.id + "\n\t -Capacidad: " + this.capacidad + "\n\t -¿Está ocupada?: "
+		return "\n\t -Id: " + this.numero + "\n\t -Capacidad: " + this.capacidad + "\n\t -¿Está ocupada?: "
 				+ this.estaOcupada;
 	}
 

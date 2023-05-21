@@ -2,14 +2,14 @@ package clases;
 
 import java.util.ArrayList;
 
-public class Segundo extends Producto {
+public class PrimerPlato extends Producto {
 
 	private boolean esVegetariano;
 	private boolean esVegano;
 	private boolean tieneGluten;
 	private boolean tieneLactosa;
 
-	public Segundo(String nombre, float precio, boolean esFrio, boolean esVegetariano, boolean esVegano,
+	public PrimerPlato(String nombre, float precio, boolean esFrio, boolean esVegetariano, boolean esVegano,
 			boolean tieneGluten, boolean tieneLactosa) {
 		super(nombre, precio, esFrio);
 		this.esVegetariano = esVegetariano;

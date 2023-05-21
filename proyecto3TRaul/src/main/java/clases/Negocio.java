@@ -113,7 +113,16 @@ public class Negocio {
 		columnas.put("comidas", comidas);
 		return columnas;
 	}
+	
+//	public HashMap<String, Object> columnasTrabajadorNegocio(){
+//		HashMap<String, Object> columnasTrabajadorNegocio = new HashMap<String, Object>();
+//		columnasTrabajadorNegocio.put("email_trabajador", trabajador.getEmail());
+//		columnasTrabajadorNegocio.put("CIF_negocio", tablon.getCif());
+//		return columnasTrabajadorNegocio;
+//	}
+	
 
+	
 	@Override
 	public String toString() {
 		return "\n\t -Nombre: " + this.nombre + "\n\t -CIF: " + this.cif + "\n\t -Dirección: " + this.direccion

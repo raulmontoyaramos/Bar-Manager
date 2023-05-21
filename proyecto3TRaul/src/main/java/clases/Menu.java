@@ -1,28 +1,55 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Menu extends MenuDelDia {
+public class Menu /* extends MenuDelDia */ {
 
-	private ArrayList<Entrante> entrantes;
+	private int id;
 
-	public Menu(ArrayList<Primero> primeros, ArrayList<Segundo> segundos, ArrayList<Postre> postres,
-			ArrayList<Bebida> bebidas, ArrayList<Entrante> entrantes) {
-		super(primeros, segundos, postres, bebidas);
-		this.entrantes = entrantes;
+//	public Menu(int id, int id2) {
+//		super(id);
+//		id = id2;
+//	}
+
+	public Menu(int id) {
+		super();
+		this.id = id;
 	}
 
-	public ArrayList<Entrante> getEntrantes() {
-		return entrantes;
+	public int getId() {
+		return id;
 	}
 
-	public void setEntrantes(ArrayList<Entrante> entrantes) {
-		this.entrantes = entrantes;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return super.toString() + "\n\t -Entrantes: " + this.entrantes;
+	public HashMap<String, Object> columnas() {
+		HashMap<String, Object> columnas = new HashMap<String, Object>();
+		columnas.put("id", id);
+		return columnas;
 	}
+
+//	private ArrayList<Entrante> entrantes;
+//
+//	public Menu(ArrayList<PrimerPlato> primeros, ArrayList<SegundoPlato> segundos, ArrayList<Postre> postres,
+//			ArrayList<Bebida> bebidas, ArrayList<Entrante> entrantes) {
+//		super(primeros, segundos, postres, bebidas);
+//		this.entrantes = entrantes;
+//	}
+//
+//	public ArrayList<Entrante> getEntrantes() {
+//		return entrantes;
+//	}
+//
+//	public void setEntrantes(ArrayList<Entrante> entrantes) {
+//		this.entrantes = entrantes;
+//	}
+//	
+//	@Override
+//	public String toString() {
+//		return super.toString() + "\n\t -Entrantes: " + this.entrantes;
+//	}
 
 }
