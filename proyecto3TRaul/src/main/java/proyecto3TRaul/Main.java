@@ -2,6 +2,7 @@ package proyecto3TRaul;
 
 import java.sql.SQLException;
 
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +21,15 @@ import clases.Producto;
 import clases.SegundoPlato;
 import clases.Trabajador;
 import enumeraciones.Comidas;
-import interfaces.AñadirOEliminarTrabajadorOMesa;
+import interfaces.Ventana;
 import utils.DAO;
 
 public class Main {
 					//NO CONSIGO APLICAR LA EXCEPCION SQLINTEGRITY PARA CUANDO SE INSERTAN VALORES DUPLICADOS
 	public static void main(String[] args) {
-//		AñadirOEliminarTrabajadorOMesa añadirEliminar = new AñadirOEliminarTrabajadorOMesa();
-//
+
+		Ventana v= new Ventana();
+		
 		Scanner sc = new Scanner(System.in);
 //		boolean salir = true;
 //		byte opcion = -1;
@@ -46,17 +48,19 @@ public class Main {
 		Trabajador trabajador = new Trabajador("CURRANTE@", "Trabajador", "1231232", 653812792);
 		Trabajador trabajador2 = new Trabajador("CURRANTE@2", "Trabajador2", "1231232", 653813792);
 		
-		Menu menu = trabajador.consultarMenu();
-//		System.out.println(menu);
-		MenuDelDia menuDD=trabajador.consultarMenuDelDia();
-//		System.out.println(menuDD);
+		MenuDelDia menuDD= new MenuDelDia();
+		Menu menu= new Menu();
+//		System.out.println(trabajador.consultarMenu());
+//		System.out.println(trabajador.consultarMenuDelDia());
 		
 		Negocio tablon= new Negocio("El tablon", "nsdjfdsnk2", "c/ Juan Latino, 2", "tablon@2", 65363762, tipoComida, menuDD, menu);
 		Mesa mesa1 = new Mesa((short)1, (byte)4, true);
 		Mesa mesa2 = new Mesa((short)2, (byte)4, false);
 		
-		trabajador.consultarTipoComida(tablon);
+//		trabajador.consultarTipoComida(tablon);
 		
+		System.out.println(trabajador.consultarBebidas());
+		System.out.println(trabajador.consultarEntrantes());
 //		trabajador.añadirMesa(mesa1);
 //		trabajador.añadirMesa(mesa2);
 //		trabajador.consultarMesasOcupadas(mesa2);
@@ -68,6 +72,8 @@ public class Main {
 //		trabajador.consultarTrabajadores(trabajador2, "telefono");
 //		trabajador.eliminarTrabajador(trabajador2);
 //		trabajador.editarTrabajador(trabajador, "telefono");
+		
+		
 //		try {
 //			LinkedHashSet<String> columnasSacar = new LinkedHashSet<String>();
 //			columnasSacar.add("email");

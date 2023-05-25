@@ -18,7 +18,6 @@ public class Trabajador {
 	private int telefono;
 
 	public Trabajador(String email, String nombre, String contraseña, int telefono) {
-		super();
 		this.nombre = nombre;
 		this.email = email;
 		this.contrasenia = contraseña;
@@ -72,22 +71,28 @@ public class Trabajador {
 		return "\n\t -Nombre: " + this.nombre + "\n\t -Email: " + this.email + "\n\t -Telefono: " + this.telefono;
 	}
 
-	public void añadirTrabajador(Trabajador t) {
-		try {
-			DAO.insert("Trabajador", t.columnas());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void añadirTrabajador(Trabajador t) throws SQLException {
+		DAO.insert("Trabajador", t.columnas());
 	}
-	
-	public void eliminarTrabajador(Trabajador t) {
+
+	public static void eliminarTrabajador(Trabajador t) {
 		try {
 			DAO.delete("Trabajador", t.columnas());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static ArrayList<Object> consultarTrabajador(String email, String contrasenia) throws SQLException {
+		LinkedHashSet<String> columnasSelect = new LinkedHashSet<>();
+		columnasSelect.add("email");
+		columnasSelect.add("contrasenia");
+		HashMap<String, Object> restricciones = new HashMap<>();
+		restricciones.put("email", email);
+		restricciones.put("contrasenia", contrasenia);
+
+		return DAO.consultar("Trabajador", columnasSelect, restricciones);
 	}
 
 	public void consultarTrabajadores(Trabajador t, String restriccion) {
@@ -104,7 +109,7 @@ public class Trabajador {
 				try {
 					ArrayList<Object> trabajadores = DAO.consultar("Trabajador",
 							new LinkedHashSet<String>(t.columnas().keySet()), restricciones);
-					for(byte i=0; i<trabajadores.size();i++) {
+					for (byte i = 0; i < trabajadores.size(); i++) {
 						System.out.println(trabajadores.get(i));
 					}
 				} catch (SQLException e) {
@@ -118,8 +123,8 @@ public class Trabajador {
 			if (respuesta.equals("No")) {
 				try {
 					ArrayList<Object> trabajadores = DAO.consultar("Trabajador",
-								new LinkedHashSet<String>(t.columnas().keySet()), new HashMap<String, Object>());
-					for(byte i=0; i<trabajadores.size();i++) {
+							new LinkedHashSet<String>(t.columnas().keySet()), new HashMap<String, Object>());
+					for (byte i = 0; i < trabajadores.size(); i++) {
 						System.out.println(trabajadores.get(i));
 					}
 				} catch (SQLException e) {
@@ -129,7 +134,7 @@ public class Trabajador {
 			}
 		} while (!(respuesta.equals("Si") || respuesta.equals("No")));
 	}
-	
+
 	public void editarTrabajador(Trabajador t, String restriccion) {
 		Scanner sc = new Scanner(System.in);
 		String respuesta;
@@ -141,19 +146,19 @@ public class Trabajador {
 				String valor = sc.nextLine();
 				HashMap<String, Object> restricciones = new HashMap<String, Object>();
 				restricciones.put(restriccion, valor);
-				
+
 				System.out.println("Dime qué columna quieres modificar");
-				String columnaModificar= sc.nextLine();
+				String columnaModificar = sc.nextLine();
 				System.out.println("Dime qué quieres que tenga esa columna ahora");
-				Object contenidoModificado= sc.nextLine();
-				HashMap<String, Object> datosAModificar= new HashMap<>();
+				Object contenidoModificado = sc.nextLine();
+				HashMap<String, Object> datosAModificar = new HashMap<>();
 				datosAModificar.put(columnaModificar, contenidoModificado);
-		try {
-			DAO.actualizar("Trabajador", datosAModificar, restricciones);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				try {
+					DAO.actualizar("Trabajador", datosAModificar, restricciones);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (!(respuesta.equals("Si") || respuesta.equals("No"))) {
 				System.out.println("Respuesta incorrecta, debes responder con 'Si' o 'No'");
@@ -161,11 +166,11 @@ public class Trabajador {
 			if (respuesta.equals("No")) {
 				try {
 					HashMap<String, Object> restricciones = new HashMap<String, Object>();
-					HashMap<String, Object> datosAModificar= new HashMap<>();
+					HashMap<String, Object> datosAModificar = new HashMap<>();
 					System.out.println("Dime qué columna quieres modificar");
-					String columnaModificar= sc.nextLine();
+					String columnaModificar = sc.nextLine();
 					System.out.println("Dime qué quieres que tenga esa columna ahora");
-					Object contenidoModificado= sc.nextLine();
+					Object contenidoModificado = sc.nextLine();
 					datosAModificar.put(columnaModificar, contenidoModificado);
 					DAO.actualizar("Trabajador", datosAModificar, restricciones);
 				} catch (SQLException e) {
@@ -175,7 +180,7 @@ public class Trabajador {
 			}
 		} while (!(respuesta.equals("Si") || respuesta.equals("No")));
 	}
-	
+
 	public void añadirMesa(Mesa m) {
 		try {
 			DAO.insert("Mesa", m.columnas());
@@ -249,29 +254,56 @@ public class Trabajador {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void consultarTipoComida(Negocio n) {
-		
+
 		System.out.println(n.getTipoComida());
 	}
-	
+
 	public Menu consultarMenu() {
-		Menu menuConsult=new Menu();
+		Menu menuConsult = new Menu();
 		return menuConsult;
 	}
-	
+
 	public MenuDelDia consultarMenuDelDia() {
-		MenuDelDia menuDDConsult= new MenuDelDia();
+		MenuDelDia menuDDConsult = new MenuDelDia();
 		return menuDDConsult;
 	}
-	
+
 	public void añadirTipoComida(Negocio n, Comidas c) {
 //		n.setTipoComida(c);
 	}
-	
+
 	public void eliminarTipoComida(Negocio n, Comidas c) {
-		
+
 	}
-	
-	
+
+	public ArrayList<Bebida> consultarBebidas() {
+		MenuDelDia menuDDConsult = new MenuDelDia();
+
+		return menuDDConsult.getBebidas();
+	}
+
+	public ArrayList<Entrante> consultarEntrantes() {
+		Menu menuConsult = new Menu();
+		return menuConsult.getEntrantes();
+	}
+
+	public ArrayList<PrimerPlato> consultarPrimeros() {
+		MenuDelDia menuDDConsult = new MenuDelDia();
+
+		return menuDDConsult.getPrimeros();
+	}
+
+	public ArrayList<SegundoPlato> consultarSegundos() {
+		MenuDelDia menuDDConsult = new MenuDelDia();
+
+		return menuDDConsult.getSegundos();
+	}
+
+	public ArrayList<Postre> consultarPostre() {
+		MenuDelDia menuDDConsult = new MenuDelDia();
+
+		return menuDDConsult.getPostres();
+	}
 }
