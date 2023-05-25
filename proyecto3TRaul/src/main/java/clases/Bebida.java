@@ -42,8 +42,8 @@ public class Bebida extends Producto {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n\t -¿Tiene cafeína?: " + this.tieneCafeina + "\n\t -¿Tiene azúcar?: "
-				+ this.tieneAzucar + "\n\t -¿Es alcohólica?: " + this.esAlcoholica;
+		return super.toString() + "\n\t -Tiene cafeina?: " + this.tieneCafeina + "\n\t -Tiene azucar?: "
+				+ this.tieneAzucar + "\n\t -Es alcoholica?: " + this.esAlcoholica;
 	}
 
 }

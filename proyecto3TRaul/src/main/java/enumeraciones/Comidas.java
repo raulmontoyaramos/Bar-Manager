@@ -2,7 +2,7 @@ package enumeraciones;
 
 public enum Comidas {
 
-	ESPAÑOLA,
+	ESPANIOLA,
 	LATINA,
 	ITALIANA,
 	CARNES,

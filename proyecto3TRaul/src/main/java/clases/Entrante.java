@@ -52,8 +52,8 @@ public class Entrante extends Producto {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n\t -¿Es vegetarinao?: " + this.esVegetariano + "\n\t -¿Es vegano?: "
-				+ this.esVegano + "\n\t -¿Tienen gluten?: " + this.tieneGluten + "\n\t -¿Tiene lactosa?: "
+		return super.toString() + "\n\t -Es vegetarinao?: " + this.esVegetariano + "\n\t -Es vegano?: "
+				+ this.esVegano + "\n\t -Tienen gluten?: " + this.tieneGluten + "\n\t -Tiene lactosa?: "
 				+ this.tieneLactosa;
 	}
 

@@ -116,7 +116,7 @@ public abstract class DAO {
 		while (it.hasNext()) {
 			Entry actual = (Entry) it.next();
 			if (actual.getValue().getClass() != String.class && actual.getValue().getClass() != Character.class) {
-				query += (String) actual.getKey() + " = " + (String) actual.getValue() + " and ";
+				query += (String) actual.getKey() + " = " + "" + actual.getValue() + " and ";
 			} else {
 				query += (String) actual.getKey() + " = '" + (String) actual.getValue() + "' and ";
 			}
@@ -163,7 +163,7 @@ public abstract class DAO {
 		while (itm.hasNext()) {
 			Entry actual = (Entry) itm.next();
 			if (actual.getValue().getClass() != String.class && actual.getValue().getClass() != Character.class) {
-				query += (String) actual.getKey() + "=" + (String) actual.getValue() + " and ";
+				query += (String) actual.getKey() + "=" + "" + actual.getValue() + " and ";
 
 			} else {
 				query += (String) actual.getKey() + "='" + (String) actual.getValue() + "' and ";
@@ -191,6 +191,7 @@ public abstract class DAO {
 		return fila;
 	}
 	
+
 	public static int actualizar(String tabla,HashMap<String,Object> datosAModificar, HashMap<String,Object> restricciones) throws SQLException {
 		String query="update "+tabla+" set ";
 		Iterator itm=datosAModificar.entrySet().iterator();
@@ -212,7 +213,7 @@ public abstract class DAO {
 				query+=actual.getKey()+" = '"+actual.getValue()+"' and ";
 			}
 		}
-		query=query.substring(0,query.length()-5);
+		query=query.substring(0,query.length()-6);
 		
 		Statement smt=connect();
 		System.out.println(query);

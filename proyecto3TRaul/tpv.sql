@@ -35,165 +35,26 @@ create database tpv;
 -- Usar la base de datos creada
 use tpv;
 
--- Crear tabla Negocio
-CREATE TABLE Negocio (
-    CIF VARCHAR(255) PRIMARY KEY,
-    comidas VARCHAR(255),
-    nombre VARCHAR(255),
-    direccion VARCHAR(255),
-    telefono INT,
-    email VARCHAR(255)
-);
-
 -- Crear tabla Trabajador
 CREATE TABLE Trabajador (
     email VARCHAR(255) PRIMARY KEY,
     nombre VARCHAR(255),
     contrasenia VARCHAR(255),
-    telefono INT,
-    CIF_negocio VARCHAR(255),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
-
--- Crear tabla Gerente
--- create table Gerente (
---    id int primary key,
---     foreign key (id) references Trabajador(email)
--- );
-
--- Crear tabla Trabajador_Negocio
-CREATE TABLE Trabajador_Negocio (
-    email_trabajador VARCHAR(255),
-    CIF_negocio VARCHAR(255),
-    PRIMARY KEY (email_trabajador , CIF_negocio),
-    FOREIGN KEY (email_trabajador)
-        REFERENCES Trabajador (email),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
+    telefono INT
 );
 
 -- Crear tabla Mesa
  CREATE TABLE Mesa (
     numero int PRIMARY KEY,
     capacidad TINYINT,
-    estaOcupada BOOLEAN,
-    CIF_negocio VARCHAR(255),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
-
- -- Crear tabla Mesa_Negocio
- CREATE TABLE Mesa_Negocio (
-    numero_mesa INT,
-    CIF_negocio VARCHAR(255),
-    PRIMARY KEY (numero_mesa , CIF_negocio),
-    FOREIGN KEY (numero_mesa)
-        REFERENCES Mesa (numero),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
-
--- Crear tabla MenuDelDia
-CREATE TABLE MenuDelDia (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    CIF_negocio VARCHAR(255),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
-
--- Crear tabla MenuDelDia_Negocio
- CREATE TABLE MenuDelDia_Negocio (
-    id_menuDelDia INT,
-    CIF_negocio VARCHAR(255),
-    PRIMARY KEY (id_menuDelDia , CIF_negocio),
-    FOREIGN KEY (id_menuDelDia)
-        REFERENCES MenuDelDia (id),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
+    estaOcupada BOOLEAN
 );
 
 -- Crear tabla Menu
- CREATE TABLE Menu (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    CIF_negocio VARCHAR(255),
-        FOREIGN KEY (id)
-        REFERENCES MenuDelDia (id),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
-
- -- Crear tabla Menu_Negocio
- CREATE TABLE Menu_Negocio (
-    id_menu INT,
-    CIF_negocio VARCHAR(255),
-    PRIMARY KEY (id_menu , CIF_negocio),
-    FOREIGN KEY (id_menu)
-        REFERENCES Menu (id),
-    FOREIGN KEY (CIF_negocio)
-        REFERENCES Negocio (CIF)
-);
+ -- CREATE TABLE Menu (
+	
+ -- );
 
 
- 
-
-
-
-
--- Crear tabla Producto
-CREATE TABLE Producto (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(255),
-    precio FLOAT,
-    foto VARCHAR(255),
-    esFrio BOOLEAN
-);
-
--- Crear tabla Entrante
- create table Entrante (
-     id int primary key auto_increment,
-     esVegetariano boolean,
-     esVegano boolean,
-     tieneGluten boolean,
-     tieneLactosa boolean,
-     foreign key (id) references Producto(id)
- );
-
--- Crear tabla PrimerPlato
- create table PrimerPlato (
-     id int primary key auto_increment,
-     esVegetariano boolean,
-     esVegano boolean,
-     tieneGluten boolean,
-     tieneLactosa boolean,
- 	foreign key (id) references Producto(id)
- );
-
--- Crear tabla SegundoPlato
- create table SegundoPlato (
-     id int primary key auto_increment,
-     esVegetariano boolean,
-     esVegano boolean,
-     tieneGluten boolean,
-     tieneLactosa boolean,
- 	foreign key (id) references Producto(id)
- );
-
--- Crear tabla Postre
- create table Postre (
-     id int primary key auto_increment,
-     tieneGluten boolean,
-     tieneLactosa boolean,
- 	foreign key (id) references Producto(id)
- );
-
--- Crear tabla Bebida
- create table Bebida (
-     id int primary key auto_increment,
-     esAlcohólica boolean,
-     tieneCafeína boolean,
-     tieneAzúcar boolean,
- 	foreign key (id) references Producto(id)
- );
 
 

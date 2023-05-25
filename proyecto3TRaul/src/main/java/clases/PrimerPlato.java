@@ -52,8 +52,8 @@ public class PrimerPlato extends Producto {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n\t -¿Es vegetariano?: " + this.esVegetariano + "\n\t -¿Es vegano?: "
-				+ this.esVegano + "\n\t -¿Tiene gluten?: " + this.tieneGluten + "\n\t -¿Tiene lactosa?: "
+		return super.toString() + "\n\t -Es vegetariano?: " + this.esVegetariano + "\n\t -Es vegano?: "
+				+ this.esVegano + "\n\t -Tiene gluten?: " + this.tieneGluten + "\n\t -Tiene lactosa?: "
 				+ this.tieneLactosa;
 	}
 

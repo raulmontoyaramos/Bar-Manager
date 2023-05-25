@@ -35,6 +35,7 @@ public class Producto {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
+//		this.foto=foto;
 		this.esFrio = esFrio;
 
 	}
@@ -65,7 +66,7 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -¿Es frío?: " + this.esFrio
+		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -Es frio?: " + this.esFrio
 				+ "\n\t -Entrantes: ";
 	}
 

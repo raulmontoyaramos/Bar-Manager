@@ -31,7 +31,7 @@ public class Postre extends Producto {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n\t -¿Tiene gluten?: " + this.tieneGluten + "\n\t -¿Tiene lactosa?: "
+		return super.toString() + "\n\t -Tiene gluten?: " + this.tieneGluten + "\n\t -Tiene lactosa?: "
 				+ this.tieneLactosa;
 	}
 
