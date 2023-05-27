@@ -9,7 +9,9 @@ public class Ventana extends JFrame{
 		this.setTitle("TPV");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setContentPane(new PantallaLogin(this));
+//		this.setContentPane(new PantallaLogin(this));
+		this.setContentPane(new PantallaMenu(this));
+
 		this.setVisible(true);
 	}
 	

@@ -70,7 +70,7 @@ public class PantallaAñadirProducto extends JPanel {
 
 		}
 		JButton aniadirButton = new JButton("Aniadir");
-		aniadirButton.setBounds(313, 249, 89, 23);
+		aniadirButton.setBounds(196, 240, 89, 23);
 		aniadirButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -98,6 +98,15 @@ public class PantallaAñadirProducto extends JPanel {
 			}
 		});
 		add(aniadirButton);
+
+		JButton salirButton = new JButton("Salir");
+		salirButton.setBounds(313, 240, 89, 23);
+		add(salirButton);
+		salirButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaMenu.class);
+			}
+		});
 
 	}
 }

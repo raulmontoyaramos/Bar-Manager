@@ -181,6 +181,7 @@ public abstract class DAO {
 				String nombreCol = (String) hsColumns.next();
 				try {
 					fila.add(cursor.getInt(cursor.findColumn(nombreCol)));
+//					fila.add(cursor.getObject(cursor.findColumn(nombreCol)));
 				} catch (NumberFormatException | SQLException e) {
 					fila.add(cursor.getString(cursor.findColumn(nombreCol)));
 				}
