@@ -29,6 +29,9 @@ public class Ventana extends JFrame{
 		if(clase.equals(PantallaMenuBar.class)) {
 			this.setContentPane(new PantallaMenuBar(this));
 		}
+		if(clase.equals(PantallaEliminarProducto.class)) {
+			this.setContentPane(new PantallaEliminarProducto(this));
+		}
 		this.getContentPane().setVisible(true);
 	}
 }

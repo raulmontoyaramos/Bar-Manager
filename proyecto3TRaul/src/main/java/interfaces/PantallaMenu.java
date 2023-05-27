@@ -42,6 +42,7 @@ public class PantallaMenu extends PanelMadre {
 		JButton verMenuButton = new JButton("Ver Menu");
 		verMenuButton.setBounds(20, 70, 89, 23);
 		add(verMenuButton);
+
 		
 		verMenuButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -50,6 +51,17 @@ public class PantallaMenu extends PanelMadre {
 
 			}
 		});
+		
+		JButton botonEliminarProducto = new JButton("Eliminar producto");
+		botonEliminarProducto.setBounds(193, 36, 125, 23);
+		add(botonEliminarProducto);
+		
+		botonEliminarProducto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaEliminarProducto.class);
 
+			}
+		});
 	}
 }

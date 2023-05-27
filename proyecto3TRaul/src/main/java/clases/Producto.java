@@ -27,7 +27,7 @@ public class Producto {
 
 //	-ImageIO: La clase ImageIO en Java proporciona métodos para leer y escribir imágenes en diferentes formatos, 
 //	como JPEG, PNG o GIF. Puede utilizar los métodos de ImageIO para cargar una imagen en memoria y trabajar con ella.
-
+	
 	private String nombre;
 	private float precio;
 	private String foto;

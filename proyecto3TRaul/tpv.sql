@@ -50,7 +50,7 @@ CREATE TABLE Trabajador (
     estaOcupada BOOLEAN
 );
 
--- Crear tabla Menu
+-- Crear tabla Producto
   CREATE TABLE Producto (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(20),
