@@ -51,9 +51,13 @@ CREATE TABLE Trabajador (
 );
 
 -- Crear tabla Menu
- -- CREATE TABLE Menu (
-	
- -- );
+  CREATE TABLE Producto (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(20),
+    precio FLOAT,
+    foto VARCHAR(255),
+    tipoProducto VARCHAR(30)
+);
 
 
 

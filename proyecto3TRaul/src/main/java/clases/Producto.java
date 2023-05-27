@@ -2,6 +2,8 @@ package clases;
 
 import java.util.ArrayList;
 
+import enumeraciones.TipoProducto;
+
 public class Producto {
 
 //	-BufferedImage: En Java, una foto puede representarse utilizando un objeto del tipo "BufferedImage".
@@ -29,14 +31,13 @@ public class Producto {
 	private String nombre;
 	private float precio;
 	private String foto;
-	private boolean esFrio;
+	private TipoProducto tipoProducto;
 
-	public Producto(String nombre, float precio, boolean esFrio) {
-		super();
+	public Producto(String nombre, float precio, String foto, TipoProducto tipoProducto) {
 		this.nombre = nombre;
 		this.precio = precio;
-//		this.foto=foto;
-		this.esFrio = esFrio;
+		this.foto = foto;
+		this.tipoProducto = tipoProducto;
 
 	}
 
@@ -56,18 +57,49 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public boolean isEsFrio() {
-		return esFrio;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setEsFrio(boolean esFrio) {
-		this.esFrio = esFrio;
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public TipoProducto getTipoProducto() {
+		return tipoProducto;
+	}
+
+	public void setTipoProducto(TipoProducto tipoProducto) {
+		this.tipoProducto = tipoProducto;
 	}
 
 	@Override
 	public String toString() {
-		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -Es frio?: " + this.esFrio
-				+ "\n\t -Entrantes: ";
+		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -Foto: " + this.foto
+				+ "\n\t -Tipo de producto: " + this.tipoProducto;
+	}
+
+	public static TipoProducto aTipoProducto(String tipo) {
+		TipoProducto tipoProducto = TipoProducto.BEBIDA;
+
+		switch (tipo) {
+		case "BEBIDA":
+			tipoProducto = TipoProducto.BEBIDA;
+			break;
+		case "ENTRANTE":
+			tipoProducto = TipoProducto.ENTRANTE;
+			break;
+		case "PRIMER_PLATO":
+			tipoProducto = TipoProducto.PRIMER_PLATO;
+			break;
+		case "SEGUNDO_PLATO":
+			tipoProducto = TipoProducto.SEGUNDO_PLATO;
+			break;
+		case "POSTRE":
+			tipoProducto = TipoProducto.POSTRE;
+			break;
+		}
+		return tipoProducto;
 	}
 
 }

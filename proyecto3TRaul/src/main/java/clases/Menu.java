@@ -13,14 +13,14 @@ public class Menu extends MenuDelDia {
 		super();
 		this.entrantes = new ArrayList<>();
 		
-		Entrante surtidoEmbutidos = new Entrante("Surtido de embutidos", 3.5f, true, false, false, false, false);
-		Entrante gambasPilpil = new Entrante("Gambas al pilpil", 3f, false, false, false, false, false);
-		Entrante ensaladaMixta = new Entrante("Ensalada mixta", 3f, true, false, false, false, false);
-		Entrante ensaladaCesar = new Entrante("Ensalada cesar", 3.5f, true, false, false, true, true);
-		this.entrantes.add(surtidoEmbutidos);
-		this.entrantes.add(gambasPilpil);
-		this.entrantes.add(ensaladaMixta);
-		this.entrantes.add(ensaladaCesar);
+//		Entrante surtidoEmbutidos = new Entrante("Surtido de embutidos", 3.5f, true, false, false, false, false);
+//		Entrante gambasPilpil = new Entrante("Gambas al pilpil", 3f, false, false, false, false, false);
+//		Entrante ensaladaMixta = new Entrante("Ensalada mixta", 3f, true, false, false, false, false);
+//		Entrante ensaladaCesar = new Entrante("Ensalada cesar", 3.5f, true, false, false, true, true);
+//		this.entrantes.add(surtidoEmbutidos);
+//		this.entrantes.add(gambasPilpil);
+//		this.entrantes.add(ensaladaMixta);
+//		this.entrantes.add(ensaladaCesar);
 
 	}
 

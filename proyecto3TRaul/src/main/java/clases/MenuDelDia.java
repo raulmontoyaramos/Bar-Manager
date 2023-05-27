@@ -16,34 +16,34 @@ public class MenuDelDia {
         this.postres = new ArrayList<>();
         this.bebidas = new ArrayList<>();
         
-		PrimerPlato estofado = new PrimerPlato("Estofado", 4.5f, false, false, false, true, false);
-		PrimerPlato sopaPuchero = new PrimerPlato("Sopa de puchero", 4f, false, false, false, false, false);
-		PrimerPlato paella = new PrimerPlato("Paella", 5f, false, false, false, true, false);
-		this.primeros.add(estofado);
-		this.primeros.add(sopaPuchero);
-		this.primeros.add(paella);
-
-		SegundoPlato bacalaoRiojana = new SegundoPlato("Bacalao a la riojana", 5f, false, false, false, false, false);
-		SegundoPlato solomilloRoquefort = new SegundoPlato("Solomillo al roquefort", 5.5f, false, false, false, true,
-				true);
-		SegundoPlato rosadaFrita = new SegundoPlato("Rosada frita", 5f, false, false, false, true, false);
-		this.segundos.add(bacalaoRiojana);
-		this.segundos.add(solomilloRoquefort);
-		this.segundos.add(rosadaFrita);
-
-		Postre flanNata = new Postre("Flan con nata", 3f, true, true, true);
-		Postre arrozLeche = new Postre("Arroz con leche", 4f, true, false, true);
-		Postre frutaTemporada = new Postre("Fruta de temporada", 2.5f, true, false, false);
-		this.postres.add(flanNata);
-		this.postres.add(arrozLeche);
-		this.postres.add(frutaTemporada);
-
-		Bebida agua = new Bebida("Agua mineral", 1.5f, true, true, false, false, false);
-		Bebida cocaCola = new Bebida("Coca-cola", 2f, true, true, true, true, false);
-		Bebida cerveza = new Bebida("Cerveza", 2.5f, true, true, false, false, true);
-		this.bebidas.add(agua);
-		this.bebidas.add(cocaCola);
-		this.bebidas.add(cerveza);
+//		PrimerPlato estofado = new PrimerPlato("Estofado", 4.5f, false, false, false, true, false);
+//		PrimerPlato sopaPuchero = new PrimerPlato("Sopa de puchero", 4f, false, false, false, false, false);
+//		PrimerPlato paella = new PrimerPlato("Paella", 5f, false, false, false, true, false);
+//		this.primeros.add(estofado);
+//		this.primeros.add(sopaPuchero);
+//		this.primeros.add(paella);
+//
+//		SegundoPlato bacalaoRiojana = new SegundoPlato("Bacalao a la riojana", 5f, false, false, false, false, false);
+//		SegundoPlato solomilloRoquefort = new SegundoPlato("Solomillo al roquefort", 5.5f, false, false, false, true,
+//				true);
+//		SegundoPlato rosadaFrita = new SegundoPlato("Rosada frita", 5f, false, false, false, true, false);
+//		this.segundos.add(bacalaoRiojana);
+//		this.segundos.add(solomilloRoquefort);
+//		this.segundos.add(rosadaFrita);
+//
+//		Postre flanNata = new Postre("Flan con nata", 3f, true, true, true);
+//		Postre arrozLeche = new Postre("Arroz con leche", 4f, true, false, true);
+//		Postre frutaTemporada = new Postre("Fruta de temporada", 2.5f, true, false, false);
+//		this.postres.add(flanNata);
+//		this.postres.add(arrozLeche);
+//		this.postres.add(frutaTemporada);
+//
+//		Bebida agua = new Bebida("Agua mineral", 1.5f, true, true, false, false, false);
+//		Bebida cocaCola = new Bebida("Coca-cola", 2f, true, true, true, true, false);
+//		Bebida cerveza = new Bebida("Cerveza", 2.5f, true, true, false, false, true);
+//		this.bebidas.add(agua);
+//		this.bebidas.add(cocaCola);
+//		this.bebidas.add(cerveza);
 	}
 
 

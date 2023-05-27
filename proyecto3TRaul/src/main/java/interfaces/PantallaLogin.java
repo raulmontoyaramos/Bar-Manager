@@ -115,12 +115,12 @@ public class PantallaLogin extends JPanel {
 					Trabajador.añadirTrabajador(trabajadorLogado);
 					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + trabajadorLogado.getNombre(),
 							"Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-					ventana.cambiarAPantalla(PantallaPrueba.class);
+					ventana.cambiarAPantalla(PantallaMenu.class);
 
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(ventana, "El trabajador no se ha registrado con exito",
 							"Registro fallido", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+					System.out.println(e1.getMessage());
 				}
 
 			}
@@ -146,11 +146,13 @@ public class PantallaLogin extends JPanel {
 					} else {
 						JOptionPane.showMessageDialog(ventana, "Login realizado con exito", "Login exitoso",
 								JOptionPane.INFORMATION_MESSAGE);
-						ventana.cambiarAPantalla(PantallaPrueba.class);
+						ventana.cambiarAPantalla(PantallaMenu.class);
 					}
 
 				} catch (SQLException e1) {
-
+					JOptionPane.showMessageDialog(ventana, "El trabajador no existe, registrese",
+							"Login fallido", JOptionPane.ERROR_MESSAGE);
+				System.out.println(e1.getMessage());
 				}
 
 			}
