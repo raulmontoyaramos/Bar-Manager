@@ -106,7 +106,7 @@ public class PantallaPedirPlato extends JPanel {
 		}
 
 		JButton aniadirButton = new JButton("Aniadir plato");
-		aniadirButton.setBounds(446, 413, 111, 23);
+		aniadirButton.setBounds(169, 413, 111, 23);
 		add(aniadirButton);
 
 		aniadirButton.addMouseListener(new MouseAdapter() {
@@ -126,7 +126,7 @@ public class PantallaPedirPlato extends JPanel {
 		});
 
 		JButton salirButton = new JButton("Salir");
-		salirButton.setBounds(314, 413, 89, 23);
+		salirButton.setBounds(444, 413, 89, 23);
 		add(salirButton);
 
 		salirButton.addMouseListener(new MouseAdapter() {
@@ -135,5 +135,43 @@ public class PantallaPedirPlato extends JPanel {
 			}
 		});
 
+		JButton pedirCuentaButton = new JButton("Pedir cuenta");
+		pedirCuentaButton.setBounds(300, 413, 122, 23);
+		add(pedirCuentaButton);
+
+		pedirCuentaButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				LinkedHashSet<String> columnasSelectJoin = new LinkedHashSet<String>();
+				columnasSelectJoin.add("p.id");
+				columnasSelectJoin.add("p.nombre");
+				columnasSelectJoin.add("p.precio");
+				columnasSelectJoin.add("p.foto");
+				columnasSelectJoin.add("p.tipoProducto");
+				try {
+					ArrayList<Object> consultaJoin = DAO.consultar(
+							"Mesa_Producto mp INNER JOIN Producto p on mp.numero_mesa = "
+									+ ((Mesa) comboBox.getSelectedItem()).getNumero(),
+							columnasSelectJoin, new HashMap<String, Object>());
+					ArrayList<ProductoConId> platosPedidos = new ArrayList<ProductoConId>();
+					float precioTotal = 0;
+					for (byte i = 0; i < consultaJoin.size(); i += 5) {
+						Integer id = (Integer) consultaJoin.get(i);
+						String nombre = (String) consultaJoin.get(i + 1);
+						float precio = (int) consultaJoin.get(i + 2);
+						String foto = (String) consultaJoin.get(i + 3);
+						TipoProducto tipoProducto = Producto.aTipoProducto((String) consultaJoin.get(i + 4));
+						ProductoConId p = new ProductoConId(id, nombre, precio, foto, tipoProducto);
+						platosPedidos.add(p);
+						precioTotal += precio;
+						System.out.println("Mesa : ");
+					}
+					JOptionPane.showMessageDialog(ventana, "Precio total : " + precioTotal, "Cuenta",
+							JOptionPane.INFORMATION_MESSAGE);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 }

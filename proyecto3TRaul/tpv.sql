@@ -61,14 +61,39 @@ CREATE TABLE Trabajador (
 
 -- Crear tabla intermedia Mesa_Producto
  CREATE TABLE Mesa_Producto (
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	numero_mesa int,
     id_producto int,
-    PRIMARY KEY (numero_mesa, id_producto),
     foreign key (numero_mesa) references Mesa(numero),
     foreign key (id_producto) references Producto(id)
 );
 
 insert into Mesa (numero, capacidad, estaOcupada)
-VALUES (1, 4, false), (2, 2, true);
+VALUES (1, 4, true), (2, 2, true);
+insert into Mesa (numero, capacidad, estaOcupada)
+VALUES (3, 4, true);
 
+insert into Producto (nombre, precio, foto, tipoProducto)
+VALUES ('p', 4, 'vownow', 'BEBIDA'), ('p2', 5, 'vgmkosfjs', 'BEBIDA');
+
+SELECT 
+    p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+FROM
+    Mesa_Producto mp
+        INNER JOIN
+    Producto p ON mp.numero_mesa = 3;
+    
+    SELECT 
+    mp.numero_mesa, mp.id, mp.id_producto, p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+FROM
+    Mesa_Producto mp
+        INNER JOIN
+    Producto p ON mp.numero_mesa = 2 AND p.nombre = 'w';
+    
+    SELECT 
+    p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+FROM
+    Mesa_Producto mp
+        INNER JOIN
+    Producto p 
 
