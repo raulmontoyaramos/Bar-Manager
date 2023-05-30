@@ -35,6 +35,7 @@ create database tpv;
 -- Usar la base de datos creada
 use tpv;
 
+drop table Trabajador;
 -- Crear tabla Trabajador
 CREATE TABLE Trabajador (
     email VARCHAR(255) PRIMARY KEY,
@@ -42,6 +43,10 @@ CREATE TABLE Trabajador (
     contrasenia VARCHAR(255),
     telefono INT
 );
+
+insert into Trabajador (email, nombre, contrasenia, telefono)
+VALUES ('p@', 'p', 'abc', 9527842), ('p2', 'pepe', 'vgmkosfjs', 98868);
+
 
 -- Crear tabla Mesa
  CREATE TABLE Mesa (

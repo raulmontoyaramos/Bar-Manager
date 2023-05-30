@@ -52,14 +52,20 @@ public class PantallaDespedirTrabajador extends JPanel {
 		columnasSelect.add("email");
 		columnasSelect.add("nombre");
 		columnasSelect.add("telefono");
-		
 
 		try {
 			ArrayList<Object> trabajadoresConsultar = DAO.consultar("Trabajador", columnasSelect,
 					new HashMap<String, Object>());
-			for(short i=0; i<trabajadoresConsultar.size();i++) {
-				contenedorElementos.add(new ElementoLista(ventana, trabajadoresConsultar.get(i)));
+			ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
+			for (short i = 0; i < trabajadoresConsultar.size(); i += 3) {
+				String email = (String) trabajadoresConsultar.get(i);
+				String nombre = (String) trabajadoresConsultar.get(i + 1);
+				int telefono = (int) trabajadoresConsultar.get(i + 2);
+				Trabajador t = new Trabajador(email, nombre, "", telefono);
+				trabajadores.add(t);
+				contenedorElementos.add(new ElementoLista(ventana, t));
 			}
+			System.out.println(trabajadores);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,12 +73,12 @@ public class PantallaDespedirTrabajador extends JPanel {
 
 		JButton eliminarButton = new JButton("Eliminar");
 		panel.add(eliminarButton);
-		
+
 		eliminarButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
-		
+
 	}
 }
