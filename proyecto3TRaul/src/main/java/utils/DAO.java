@@ -214,7 +214,7 @@ public abstract class DAO {
 				query+=actual.getKey()+" = '"+actual.getValue()+"' and ";
 			}
 		}
-		query=query.substring(0,query.length()-6);
+		query=query.substring(0,query.length()-5);
 		
 		Statement smt=connect();
 		System.out.println(query);

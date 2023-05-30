@@ -24,7 +24,6 @@ public class PantallaMesasLibres extends JPanel {
 
 	private Ventana ventana;
 	private DefaultListModel<String> modelMesasLibres = new DefaultListModel<String>();
-	private DefaultListModel<String> modelMesasOcupadas = new DefaultListModel<String>();
 
 	public PantallaMesasLibres(Ventana v) {
 		this.ventana = v;
@@ -53,11 +52,8 @@ public class PantallaMesasLibres extends JPanel {
 				int numero = (int) mesasConsultar.get(i); // numero era short, capacidad era byte y estaOcupada boolean
 				int capacidad = (int) mesasConsultar.get(i + 1);// pero no me funcionaban los casteos de otra forma, he
 				int estaOcupada = (int) mesasConsultar.get(i + 2);// tenido que cambiar los tipos en la clase Mesa
-				boolean ocupada = false;
-				if(estaOcupada==1) {
-					ocupada=true;
-				}
-				Mesa m = new Mesa(numero, capacidad, ocupada);
+						
+				Mesa m = new Mesa(numero, capacidad, estaOcupada);
 				mesas.add(m);
 			}
 			System.out.println(mesas);

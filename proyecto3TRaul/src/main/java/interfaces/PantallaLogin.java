@@ -2,7 +2,6 @@ package interfaces;
 
 import javax.swing.JPanel;
 
-
 import javax.swing.JTextField;
 
 import clases.Trabajador;
@@ -122,11 +121,11 @@ public class PantallaLogin extends JPanel {
 					ventana.cambiarAPantalla(PantallaMenu.class);
 
 				} catch (SQLIntegrityConstraintViolationException e2) {
-					JOptionPane.showMessageDialog(ventana, "El email ya existe",
-							"Registro fallido", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(ventana, "El email ya existe", "Registro fallido",
+							JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(ventana, "No se pudo conectar a la base de datos",
-							"Registro fallido", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(ventana, "No se pudo conectar a la base de datos", "Registro fallido",
+							JOptionPane.ERROR_MESSAGE);
 					System.out.println(e1.getMessage());
 				} catch (NumberFormatException e3) {
 					JOptionPane.showMessageDialog(ventana, "Tienes que poner el número de teléfono usando solo números",
@@ -157,17 +156,17 @@ public class PantallaLogin extends JPanel {
 						ventana.cambiarAPantalla(PantallaMenu.class);
 					}
 
-				}/* catch (ContraseñaInvalidaException e3) {
-					JOptionPane.showMessageDialog(ventana, "Contraseña incorrecta", "Login fallidos",
-							JOptionPane.ERROR_MESSAGE);
-
-				}catch (UsuarioNoExisteException e2) {
-					JOptionPane.showMessageDialog(ventana, "El usuario no existe", "Login fallidos",
-							JOptionPane.ERROR_MESSAGE);
-				}*/ catch (SQLException e1) {
+				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Login fallido", JOptionPane.ERROR_MESSAGE);
 					System.out.println(e1.getMessage());
-				} 
+				} /*catch (UsuarioNoExisteException e2) {
+					JOptionPane.showMessageDialog(ventana, "El usuario no existe", "Login fallido",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (ContraseñaInvalidaException e3) {
+					JOptionPane.showMessageDialog(ventana, "Contraseña incorrecta", "Login fallido",
+							JOptionPane.ERROR_MESSAGE);
+
+				}*/
 			}
 		});
 		add(aceptarInicioSesion);

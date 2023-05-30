@@ -19,27 +19,32 @@ import javax.swing.JList;
 import javax.swing.JButton;
 
 public class PantallaMesasOcupadas extends JPanel {
+
+	private Ventana ventana;
+	private DefaultListModel<String> modelMesasOcupadas = new DefaultListModel<String>();
+
 	public PantallaMesasOcupadas(Ventana v) {
-		this.ventana=v;
+
+		this.ventana = v;
 		setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("MESAS OCUPADAS : ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(10, 23, 175, 23);
 		add(lblNewLabel);
-		
+
 		JList<String> listaMesasOcupadas = new JList<String>();
 		listaMesasOcupadas.setBounds(20, 57, 324, 208);
 		add(listaMesasOcupadas);
 		listaMesasOcupadas.setModel(modelMesasOcupadas);
-		
+
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
 		columnasSelect.add("numero");
 		columnasSelect.add("capacidad");
 		columnasSelect.add("estaOcupada");
 		HashMap<String, Object> restricciones = new HashMap<String, Object>();
 		restricciones.put("estaOcupada", 1);
-		
+
 		try {
 			ArrayList<Object> mesasConsultar = DAO.consultar("Mesa", columnasSelect, restricciones);
 			ArrayList<Mesa> mesas = new ArrayList<Mesa>();
@@ -52,20 +57,19 @@ public class PantallaMesasOcupadas extends JPanel {
 			}
 			System.out.println(mesas);
 			for (Mesa mesa : mesas) {
-					modelMesasOcupadas.addElement("Numero de mesa :\n " + mesa.getNumero() + "\n" + ", " + "Capacidad : "
-							+ mesa.getCapacidad() + "\n");
-				
+				modelMesasOcupadas.addElement("Numero de mesa :\n " + mesa.getNumero() + "\n" + ", " + "Capacidad : "
+						+ mesa.getCapacidad() + "\n");
 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JButton salirButton = new JButton("Salir");
 		salirButton.setBounds(340, 276, 89, 23);
 		add(salirButton);
-		
+
 		salirButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla(PantallaMenu.class);
@@ -73,9 +77,4 @@ public class PantallaMesasOcupadas extends JPanel {
 		});
 	}
 
-	private Ventana ventana;
-	private DefaultListModel<String> modelMesasOcupadas = new DefaultListModel<String>();
-	
-	
-	
 }

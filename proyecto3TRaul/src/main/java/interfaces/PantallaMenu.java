@@ -18,6 +18,8 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PantallaMenu extends PanelMadre {
 	private Ventana ventana;
@@ -53,7 +55,7 @@ public class PantallaMenu extends PanelMadre {
 		});
 
 		JButton botonEliminarProducto = new JButton("Eliminar producto");
-		botonEliminarProducto.setBounds(193, 36, 142, 23);
+		botonEliminarProducto.setBounds(276, 36, 142, 23);
 		add(botonEliminarProducto);
 
 		botonEliminarProducto.addMouseListener(new MouseAdapter() {
@@ -65,8 +67,12 @@ public class PantallaMenu extends PanelMadre {
 		});
 
 		JButton verMesasLibresButton = new JButton("Ver mesas libres");
+		verMesasLibresButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		verMesasLibresButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		verMesasLibresButton.setBounds(193, 70, 142, 23);
+		verMesasLibresButton.setBounds(276, 70, 142, 23);
 		add(verMesasLibresButton);
 
 		verMesasLibresButton.addMouseListener(new MouseAdapter() {
@@ -91,7 +97,11 @@ public class PantallaMenu extends PanelMadre {
 		});
 
 		JButton botonAniadirMesa = new JButton("Aniadir mesa");
-		botonAniadirMesa.setBounds(193, 116, 132, 23);
+		botonAniadirMesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		botonAniadirMesa.setBounds(276, 116, 132, 23);
 		add(botonAniadirMesa);
 
 		botonAniadirMesa.addMouseListener(new MouseAdapter() {
@@ -115,13 +125,62 @@ public class PantallaMenu extends PanelMadre {
 		});
 		
 		JButton platosPedidosButton = new JButton("Platos pedidos");
-		platosPedidosButton.setBounds(193, 164, 142, 23);
+		platosPedidosButton.setBounds(276, 164, 142, 23);
 		add(platosPedidosButton);
 		
 		platosPedidosButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla(PantallaPlatosPedidos.class);
+
+			}
+		});
+		
+		JButton despedirButton = new JButton("Despedir trabajador");
+		despedirButton.setBounds(20, 207, 142, 23);
+		add(despedirButton);
+
+		
+		despedirButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaDespedirTrabajador.class);
+
+			}
+		});
+		
+		JButton marcarMesaLibreButton = new JButton("Marcar mesa libre");
+		marcarMesaLibreButton.setBounds(276, 207, 142, 23);
+		add(marcarMesaLibreButton);
+		
+		marcarMesaLibreButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaMarcarMesaLibre.class);
+
+			}
+		});
+		
+		JButton marcarMesaOcupadaButton = new JButton("Marcar mesa ocupada");
+		marcarMesaOcupadaButton.setBounds(20, 241, 186, 23);
+		add(marcarMesaOcupadaButton);
+		
+		marcarMesaOcupadaButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaMarcarMesaOcupada.class);
+
+			}
+		});
+		
+		JButton pedirPlatoButton = new JButton("Pedir plato");
+		pedirPlatoButton.setBounds(276, 241, 142, 23);
+		add(pedirPlatoButton);
+		
+		pedirPlatoButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaPedirPlato.class);
 
 			}
 		});

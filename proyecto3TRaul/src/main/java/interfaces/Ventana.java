@@ -9,8 +9,8 @@ public class Ventana extends JFrame {
 		this.setTitle("TPV");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setContentPane(new PantallaLogin(this));
-//		this.setContentPane(new PantallaMenu(this));
+//		this.setContentPane(new PantallaLogin(this));
+		this.setContentPane(new PantallaMenu(this));
 
 		this.setVisible(true);
 	}
@@ -46,6 +46,18 @@ public class Ventana extends JFrame {
 		}
 		if (clase.equals(PantallaPlatosPedidos.class)) {
 			this.setContentPane(new PantallaPlatosPedidos(this));
+		}
+		if (clase.equals(PantallaDespedirTrabajador.class)) {
+			this.setContentPane(new PantallaDespedirTrabajador(this));
+		}
+		if (clase.equals(PantallaMarcarMesaLibre.class)) {
+			this.setContentPane(new PantallaMarcarMesaLibre(this));
+		}
+		if (clase.equals(PantallaMarcarMesaOcupada.class)) {
+			this.setContentPane(new PantallaMarcarMesaOcupada(this));
+		}
+		if (clase.equals(PantallaPedirPlato.class)) {
+			this.setContentPane(new PantallaPedirPlato(this));
 		}
 		this.getContentPane().setVisible(true);
 	}

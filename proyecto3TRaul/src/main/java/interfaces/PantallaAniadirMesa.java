@@ -54,7 +54,7 @@ public class PantallaAniadirMesa extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				String numero = campoNumero.getText();
 				String capacidad = campoCapacidad.getText();
-
+				String estaOcupada = campoCapacidad.getText();
 				Mesa m = new Mesa(Integer.parseInt(numero), Integer.parseInt(capacidad), Integer.parseInt(estaOcupada));
 
 				HashMap<String, Object> columnas = new HashMap<>();

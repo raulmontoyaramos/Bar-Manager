@@ -11,15 +11,15 @@ public class Mesa {
 
 	private int numero;
 	private int capacidad;
-	private boolean estaOcupada;
+	private int estaOcupada;
 	private ArrayList<Producto> platosPedidos;
 
-	public Mesa(int numero, int capacidad, boolean estaOcupada) {
+	public Mesa(int numero, int capacidad, int estaOcupada) {
 		super();
 		this.numero = numero;
 		this.capacidad = capacidad;
 		this.estaOcupada = estaOcupada;
-		this.platosPedidos = platosPedidos;
+		this.platosPedidos = new ArrayList<Producto>();
 
 	}
 
@@ -39,16 +39,24 @@ public class Mesa {
 		this.capacidad = capacidad;
 	}
 
-	public boolean isEstaOcupada() {
-		return estaOcupada;
-	}
-
-	public void setEstaOcupada(boolean estaOcupada) {
-		this.estaOcupada = estaOcupada;
-	}
+//	public boolean isEstaOcupada() {
+//		return estaOcupada;
+//	}
+//
+//	public void setEstaOcupada(boolean estaOcupada) {
+//		this.estaOcupada = estaOcupada;
+//	}
 
 	public ArrayList<Producto> getPlatosPedidos() {
 		return platosPedidos;
+	}
+
+	public int getEstaOcupada() {
+		return estaOcupada;
+	}
+
+	public void setEstaOcupada(int estaOcupada) {
+		this.estaOcupada = estaOcupada;
 	}
 
 	public void setPlatosPedidos(ArrayList<Producto> platosPedidos) {
@@ -65,8 +73,7 @@ public class Mesa {
 
 	@Override
 	public String toString() {
-		return "\n\t -Id: " + this.numero + "\n\t -Capacidad: " + this.capacidad + "\n\t -¿Está ocupada?: "
-				+ this.estaOcupada + "\n\t- Platos Pedidos: " + this.platosPedidos;
+		return "Mesa :" + numero + "(" + capacidad + ")";
 	}
 
 }
