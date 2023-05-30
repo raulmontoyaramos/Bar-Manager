@@ -59,6 +59,16 @@ CREATE TABLE Trabajador (
     tipoProducto VARCHAR(30)
 );
 
+-- Crear tabla intermedia Mesa_Producto
+ CREATE TABLE Mesa_Producto (
+	numero_mesa int,
+    id_producto int,
+    PRIMARY KEY (numero_mesa, id_producto),
+    foreign key (numero_mesa) references Mesa(numero),
+    foreign key (id_producto) references Producto(id)
+);
 
+insert into Mesa (numero, capacidad, estaOcupada)
+VALUES (1, 4, false), (2, 2, true);
 
 

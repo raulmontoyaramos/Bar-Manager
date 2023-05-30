@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clases.Producto;
@@ -35,7 +36,7 @@ public class PantallaEliminarProducto extends JPanel {
 		add(etiquetaMenu);
 
 		final JList<ProductoConId> listaProductos = new JList<ProductoConId>();
-		listaProductos.setBounds(116, 36, 183, 245);
+		listaProductos.setBounds(63, 62, 312, 288);
 		add(listaProductos);
 		listaProductos.setModel(model);
 
@@ -92,9 +93,13 @@ public class PantallaEliminarProducto extends JPanel {
 				try {
 					DAO.delete("Producto", camposEliminar);
 					model.removeElement(p);
-					
+					JOptionPane.showMessageDialog(ventana, "Producto eliminado con exito", "Producto eliminado",
+							JOptionPane.INFORMATION_MESSAGE);
+
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(ventana,
+							"Error al eliminar el producto, es posible que el producto indicado no exista", "Error",
+							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
 			}

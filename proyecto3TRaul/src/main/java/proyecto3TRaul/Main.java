@@ -54,8 +54,8 @@ public class Main {
 //		System.out.println(trabajador.consultarMenuDelDia());
 		
 		Negocio tablon= new Negocio("El tablon", "nsdjfdsnk2", "c/ Juan Latino, 2", "tablon@2", 65363762, tipoComida, menuDD, menu);
-		Mesa mesa1 = new Mesa((short)1, (byte)4, true);
-		Mesa mesa2 = new Mesa((short)2, (byte)4, false);
+//		Mesa mesa1 = new Mesa((short)1, (byte)4, true);
+//		Mesa mesa2 = new Mesa((short)2, (byte)4, false);
 		
 //		trabajador.consultarTipoComida(tablon);
 		

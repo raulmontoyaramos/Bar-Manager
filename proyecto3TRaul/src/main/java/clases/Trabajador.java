@@ -199,31 +199,31 @@ public class Trabajador {
 		}
 	}
 
-	public void marcarMesaLibre(Mesa m) {
-		m.setEstaOcupada(false);
-		HashMap<String, Object> restricciones = new HashMap<String, Object>();
-		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
-		valoresNuevos.put("estaOcupada", false);
-		try {
-			DAO.actualizar("Mesa", valoresNuevos, restricciones);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void marcarMesaLibre(Mesa m) {
+//		m.setEstaOcupada(false);
+//		HashMap<String, Object> restricciones = new HashMap<String, Object>();
+//		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
+//		valoresNuevos.put("estaOcupada", false);
+//		try {
+//			DAO.actualizar("Mesa", valoresNuevos, restricciones);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
-	public void marcarMesaOcupada(Mesa m) {
-		m.setEstaOcupada(true);
-		HashMap<String, Object> restricciones = new HashMap<String, Object>();
-		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
-		valoresNuevos.put("estaOcupada", true);
-		try {
-			DAO.actualizar("Mesa", valoresNuevos, restricciones);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void marcarMesaOcupada(Mesa m) {
+//		m.setEstaOcupada(true);
+//		HashMap<String, Object> restricciones = new HashMap<String, Object>();
+//		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
+//		valoresNuevos.put("estaOcupada", true);
+//		try {
+//			DAO.actualizar("Mesa", valoresNuevos, restricciones);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void consultarMesasLibres(Mesa m) {
 		ArrayList<Object> mesas;

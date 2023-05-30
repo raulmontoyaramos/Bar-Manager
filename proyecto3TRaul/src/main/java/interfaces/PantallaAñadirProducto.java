@@ -2,6 +2,7 @@ package interfaces;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import clases.Producto;
@@ -48,9 +49,9 @@ public class PantallaAñadirProducto extends JPanel {
 		add(lblNewLabel_1_1_1_1);
 
 		campoNombre = new JTextField();
+		campoNombre.setColumns(10);
 		campoNombre.setBounds(116, 36, 153, 20);
 		add(campoNombre);
-		campoNombre.setColumns(10);
 
 		campoPrecio = new JTextField();
 		campoPrecio.setColumns(10);
@@ -91,8 +92,13 @@ public class PantallaAñadirProducto extends JPanel {
 
 				try {
 					DAO.insert("Producto", columnas);
+					JOptionPane.showMessageDialog(ventana, "Producto añadido con exito", "Producto añadido",
+							JOptionPane.INFORMATION_MESSAGE);
 
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(ventana,
+							"Error al añadir el producto, es posible que haya rellenado un campo con un valor invalido",
+							"Error", JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
 			}

@@ -2,15 +2,19 @@ package interfaces;
 
 import javax.swing.JPanel;
 
+
 import javax.swing.JTextField;
 
 import clases.Trabajador;
+import excepciones.ContraseñaInvalidaException;
+import excepciones.UsuarioNoExisteException;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -117,14 +121,18 @@ public class PantallaLogin extends JPanel {
 							"Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
 					ventana.cambiarAPantalla(PantallaMenu.class);
 
+				} catch (SQLIntegrityConstraintViolationException e2) {
+					JOptionPane.showMessageDialog(ventana, "El email ya existe",
+							"Registro fallido", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(ventana, "El trabajador no se ha registrado con exito",
+					JOptionPane.showMessageDialog(ventana, "No se pudo conectar a la base de datos",
 							"Registro fallido", JOptionPane.ERROR_MESSAGE);
 					System.out.println(e1.getMessage());
+				} catch (NumberFormatException e3) {
+					JOptionPane.showMessageDialog(ventana, "Tienes que poner el número de teléfono usando solo números",
+							"Numero de teléfono incorrecto", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
-			
 
 		});
 		add(aceptarRegistro);
@@ -149,14 +157,18 @@ public class PantallaLogin extends JPanel {
 						ventana.cambiarAPantalla(PantallaMenu.class);
 					}
 
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(ventana, "El trabajador no existe, registrese",
-							"Login fallido", JOptionPane.ERROR_MESSAGE);
-				System.out.println(e1.getMessage());
-				}
+				}/* catch (ContraseñaInvalidaException e3) {
+					JOptionPane.showMessageDialog(ventana, "Contraseña incorrecta", "Login fallidos",
+							JOptionPane.ERROR_MESSAGE);
 
+				}catch (UsuarioNoExisteException e2) {
+					JOptionPane.showMessageDialog(ventana, "El usuario no existe", "Login fallidos",
+							JOptionPane.ERROR_MESSAGE);
+				}*/ catch (SQLException e1) {
+					JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Login fallido", JOptionPane.ERROR_MESSAGE);
+					System.out.println(e1.getMessage());
+				} 
 			}
-
 		});
 		add(aceptarInicioSesion);
 

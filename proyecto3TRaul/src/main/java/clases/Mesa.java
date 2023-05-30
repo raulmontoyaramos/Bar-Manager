@@ -9,12 +9,12 @@ import utils.DAO;
 
 public class Mesa {
 
-	private short numero;
-	private byte capacidad;
+	private int numero;
+	private int capacidad;
 	private boolean estaOcupada;
 	private ArrayList<Producto> platosPedidos;
 
-	public Mesa(short numero, byte capacidad, boolean estaOcupada) {
+	public Mesa(int numero, int capacidad, boolean estaOcupada) {
 		super();
 		this.numero = numero;
 		this.capacidad = capacidad;
@@ -23,19 +23,19 @@ public class Mesa {
 
 	}
 
-	public short getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(short numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
-	public byte getCapacidad() {
+	public int getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(byte capacidad) {
+	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
 
