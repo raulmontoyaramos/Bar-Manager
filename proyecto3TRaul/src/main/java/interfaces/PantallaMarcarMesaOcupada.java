@@ -18,7 +18,7 @@ import clases.Mesa;
 import utils.DAO;
 
 public class PantallaMarcarMesaOcupada extends JPanel {
-	
+
 	private Ventana ventana;
 	private DefaultListModel<Mesa> modelMesasLibres = new DefaultListModel<Mesa>();
 	private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
@@ -26,23 +26,23 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 	public PantallaMarcarMesaOcupada(Ventana v) {
 		this.ventana = v;
 		setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Mesas ocupadas : ");
 		lblNewLabel.setBounds(10, 29, 46, 14);
 		add(lblNewLabel);
-		
+
 		final JList<Mesa> listaMesasMarcarLibre = new JList<Mesa>();
 		listaMesasMarcarLibre.setBounds(38, 54, 283, 223);
 		add(listaMesasMarcarLibre);
 		listaMesasMarcarLibre.setModel(modelMesasLibres);
-		
+
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
 		columnasSelect.add("numero");
 		columnasSelect.add("capacidad");
 		columnasSelect.add("estaOcupada");
 		HashMap<String, Object> restricciones = new HashMap<String, Object>();
 		restricciones.put("estaOcupada", 0);
-		
+
 		try {
 			ArrayList<Object> mesasConsultar = DAO.consultar("Mesa", columnasSelect, restricciones);
 			ArrayList<Mesa> mesas = new ArrayList<Mesa>();
@@ -65,11 +65,11 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JButton marcarOcupadaButton = new JButton("Marcar ocupada");
 		marcarOcupadaButton.setBounds(331, 200, 109, 23);
 		add(marcarOcupadaButton);
-		
+
 		marcarOcupadaButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Mesa m = listaMesasMarcarLibre.getSelectedValue();
@@ -77,7 +77,8 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 				camposMarcarLibre.put("estaOcupada", 1);
 				HashMap<String, Object> restricciones = new HashMap<String, Object>();
 				restricciones.put("estaOcupada", 0);
-				
+				restricciones.put("numero", m.getNumero());
+
 				try {
 					DAO.actualizar("Mesa", camposMarcarLibre, restricciones);
 					modelMesasLibres.removeElement(m);
@@ -91,11 +92,11 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 				}
 			}
 		});
-		
+
 		JButton salirButton = new JButton("Salir");
 		salirButton.setBounds(331, 245, 89, 23);
 		add(salirButton);
-		
+
 		salirButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla(PantallaMenu.class);

@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import clases.Trabajador;
-import excepciones.ContraseñaInvalidaException;
+import excepciones.CampoVacioException;
 import excepciones.UsuarioNoExisteException;
 
 import java.awt.Font;
@@ -29,7 +29,6 @@ public class PantallaLogin extends JPanel {
 	private JPasswordField campoContraseniaInicioSesion;
 	private JPasswordField campoContraseniaRegistro;
 	private Ventana ventana;
-	protected Trabajador trabajadorLogado;
 
 	public PantallaLogin(Ventana v) {
 		this.ventana = v;
@@ -114,10 +113,14 @@ public class PantallaLogin extends JPanel {
 
 				try {
 					// TODO: controlar que los campos no estén vacíos
-					trabajadorLogado = new Trabajador(email, nombre, contrasenia, Integer.parseInt(telefono));
+					// DAO.insert para trabajador lo haga en el constructor de trabajador con todos
+					// sus campos en vez de desde aquí
+					Trabajador trabajadorLogado = new Trabajador(email, nombre, contrasenia,
+							Integer.parseInt(telefono));
 					Trabajador.añadirTrabajador(trabajadorLogado);
 					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + trabajadorLogado.getNombre(),
 							"Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+					ventana.setTrabajadorLogado(trabajadorLogado);
 					ventana.cambiarAPantalla(PantallaMenu.class);
 
 				} catch (SQLIntegrityConstraintViolationException e2) {
@@ -146,27 +149,19 @@ public class PantallaLogin extends JPanel {
 				String contrasenia = new String(campoContraseniaInicioSesion.getPassword());
 
 				try {
-					ArrayList<Object> resultado = Trabajador.consultarTrabajador(email, contrasenia);
-					if (resultado.isEmpty()) {
-						JOptionPane.showMessageDialog(ventana, "El trabajador no existe, registrese", "Login fallido",
-								JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(ventana, "Login realizado con exito", "Login exitoso",
-								JOptionPane.INFORMATION_MESSAGE);
-						ventana.cambiarAPantalla(PantallaMenu.class);
-					}
-
+					Trabajador resultado = Trabajador.consultarTrabajador(email, contrasenia);
+					JOptionPane.showMessageDialog(ventana, "Login realizado con exito", "Login exitoso",
+							JOptionPane.INFORMATION_MESSAGE);
+					ventana.setTrabajadorLogado(resultado);
+					ventana.cambiarAPantalla(PantallaMenu.class);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Login fallido", JOptionPane.ERROR_MESSAGE);
 					System.out.println(e1.getMessage());
-				} /*catch (UsuarioNoExisteException e2) {
-					JOptionPane.showMessageDialog(ventana, "El usuario no existe", "Login fallido",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (ContraseñaInvalidaException e3) {
-					JOptionPane.showMessageDialog(ventana, "Contraseña incorrecta", "Login fallido",
-							JOptionPane.ERROR_MESSAGE);
-
-				}*/
+				} catch (UsuarioNoExisteException e2) {
+					JOptionPane.showMessageDialog(ventana, e2.getMessage(), "Login fallido", JOptionPane.ERROR_MESSAGE);
+				} catch (CampoVacioException e1) {
+					JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Login fallido", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		add(aceptarInicioSesion);

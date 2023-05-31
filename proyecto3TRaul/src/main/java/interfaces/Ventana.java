@@ -2,15 +2,28 @@ package interfaces;
 
 import javax.swing.JFrame;
 
+import clases.Trabajador;
+
 public class Ventana extends JFrame {
+
+	private Trabajador trabajadorLogado;
+
+	public Trabajador getTrabajadorLogado() {
+		return trabajadorLogado;
+	}
+
+	public void setTrabajadorLogado(Trabajador trabajadorLogado) {
+		this.trabajadorLogado = trabajadorLogado;
+	}
 
 	public Ventana() {
 		this.setSize(600, 500);
 		this.setTitle("TPV");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-//		this.setContentPane(new PantallaLogin(this));
-		this.setContentPane(new PantallaMenu(this));
+		this.setContentPane(new PantallaLogin(this));
+
+//		this.setContentPane(new PantallaMenu(this));
 
 		this.setVisible(true);
 	}
@@ -58,6 +71,9 @@ public class Ventana extends JFrame {
 		}
 		if (clase.equals(PantallaPedirPlato.class)) {
 			this.setContentPane(new PantallaPedirPlato(this));
+		}
+		if (clase.equals(PantallaEditarTrabajador.class)) {
+			this.setContentPane(new PantallaEditarTrabajador(this));
 		}
 		this.getContentPane().setVisible(true);
 	}

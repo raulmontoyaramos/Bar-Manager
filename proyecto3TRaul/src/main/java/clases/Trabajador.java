@@ -8,6 +8,8 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 import enumeraciones.Comidas;
+import excepciones.CampoVacioException;
+import excepciones.UsuarioNoExisteException;
 import utils.DAO;
 
 public class Trabajador {
@@ -84,15 +86,32 @@ public class Trabajador {
 		}
 	}
 
-	public static ArrayList<Object> consultarTrabajador(String email, String contrasenia) throws SQLException {
+	public static Trabajador consultarTrabajador(String email, String contrasenia)
+			throws SQLException, UsuarioNoExisteException, CampoVacioException {
+		if (email.isEmpty() || contrasenia.isEmpty()) {
+			throw new CampoVacioException();
+
+		}
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<>();
 		columnasSelect.add("email");
+		columnasSelect.add("nombre");
 		columnasSelect.add("contrasenia");
+		columnasSelect.add("telefono");
 		HashMap<String, Object> restricciones = new HashMap<>();
 		restricciones.put("email", email);
 		restricciones.put("contrasenia", contrasenia);
 
-		return DAO.consultar("Trabajador", columnasSelect, restricciones);
+		ArrayList<Object> resultado = DAO.consultar("Trabajador", columnasSelect, restricciones);
+		if (resultado.isEmpty()) {
+			throw new UsuarioNoExisteException("El trabajador no existe");
+		} else {
+			String emailResultado = String.valueOf(resultado.get(0));
+			String nombre = String.valueOf(resultado.get(1));
+			String contraseniaResultado = String.valueOf(resultado.get(2));
+			int telefono = (int) resultado.get(3);
+			Trabajador tResult = new Trabajador(emailResultado, nombre, contraseniaResultado, telefono);
+			return tResult;
+		}
 	}
 
 	public void consultarTrabajadores(Trabajador t, String restriccion) {
@@ -127,52 +146,6 @@ public class Trabajador {
 					for (byte i = 0; i < trabajadores.size(); i++) {
 						System.out.println(trabajadores.get(i));
 					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		} while (!(respuesta.equals("Si") || respuesta.equals("No")));
-	}
-
-	public void editarTrabajador(Trabajador t, String restriccion) {
-		Scanner sc = new Scanner(System.in);
-		String respuesta;
-		do {
-			System.out.println("Quieres aplicar una restriccion (filtro) a la consulta?(responde con Si o No)");
-			respuesta = sc.nextLine();
-			if (respuesta.equals("Si")) {
-				System.out.println("Dime el valor de la restriccion para hacer la consulta");
-				String valor = sc.nextLine();
-				HashMap<String, Object> restricciones = new HashMap<String, Object>();
-				restricciones.put(restriccion, valor);
-
-				System.out.println("Dime qué columna quieres modificar");
-				String columnaModificar = sc.nextLine();
-				System.out.println("Dime qué quieres que tenga esa columna ahora");
-				Object contenidoModificado = sc.nextLine();
-				HashMap<String, Object> datosAModificar = new HashMap<>();
-				datosAModificar.put(columnaModificar, contenidoModificado);
-				try {
-					DAO.actualizar("Trabajador", datosAModificar, restricciones);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (!(respuesta.equals("Si") || respuesta.equals("No"))) {
-				System.out.println("Respuesta incorrecta, debes responder con 'Si' o 'No'");
-			}
-			if (respuesta.equals("No")) {
-				try {
-					HashMap<String, Object> restricciones = new HashMap<String, Object>();
-					HashMap<String, Object> datosAModificar = new HashMap<>();
-					System.out.println("Dime qué columna quieres modificar");
-					String columnaModificar = sc.nextLine();
-					System.out.println("Dime qué quieres que tenga esa columna ahora");
-					Object contenidoModificado = sc.nextLine();
-					datosAModificar.put(columnaModificar, contenidoModificado);
-					DAO.actualizar("Trabajador", datosAModificar, restricciones);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

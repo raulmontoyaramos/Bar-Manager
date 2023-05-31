@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import clases.Mesa;
 import clases.Trabajador;
+import listener.OnClickEliminar;
 import utils.DAO;
 
 import java.awt.GridBagLayout;
@@ -23,7 +24,7 @@ public class ElementoLista extends JPanel {
 	private Ventana ventana;
 	private Trabajador trabajador;
 
-	public ElementoLista(Ventana v, final Trabajador t) {
+	public ElementoLista(Ventana v, final Trabajador t, final OnClickEliminar onClickEliminar) {
 		this.ventana = v;
 		this.trabajador = t;
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -40,29 +41,34 @@ public class ElementoLista extends JPanel {
 		gbc_labelNombre.gridy = 0;
 		add(labelNombre, gbc_labelNombre);
 
-		JButton btnNewButton = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridx = 5;
-		gbc_btnNewButton.gridy = 0;
-		add(btnNewButton, gbc_btnNewButton);
+		JButton eliminarButton = new JButton("Eliminar");
+		GridBagConstraints gbc_eliminarButton = new GridBagConstraints();
+		gbc_eliminarButton.insets = new Insets(0, 0, 5, 0);
+		gbc_eliminarButton.gridx = 5;
+		gbc_eliminarButton.gridy = 0;
+		add(eliminarButton, gbc_eliminarButton);
+		if (!trabajador.getEmail().equals(ventana.getTrabajadorLogado().getEmail())) {
+			eliminarButton.setEnabled(true);
+			eliminarButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					HashMap<String, Object> camposEliminar = new HashMap<String, Object>();
+					camposEliminar.put("email", t.getEmail());
 
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				HashMap<String, Object> camposEliminar = new HashMap<String, Object>();
-				camposEliminar.put("email", t.getEmail());
-
-				try {
-					DAO.delete("Trabajador", camposEliminar);
-					JOptionPane.showMessageDialog(ventana, "Trabajador despedido.", "Despidos",
-							JOptionPane.INFORMATION_MESSAGE);
-
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(ventana, "Error en el despido", "Error", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+					try {
+						DAO.delete("Trabajador", camposEliminar);
+						JOptionPane.showMessageDialog(ventana, "Trabajador despedido.", "Despidos",
+								JOptionPane.INFORMATION_MESSAGE);
+						onClickEliminar.onClicked(ElementoLista.this);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(ventana, "Error en el despido", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+		} else {
+			eliminarButton.setEnabled(false);
+		}
 
 		JLabel labelEmail = new JLabel(trabajador.getEmail());
 		GridBagConstraints gbc_labelEmail = new GridBagConstraints();

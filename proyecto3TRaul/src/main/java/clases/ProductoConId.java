@@ -22,7 +22,7 @@ public class ProductoConId extends Producto {
 
 	@Override
 	public String toString() {
-		return getNombre() + ", " + getTipoProducto().name();
+		return getNombre() + ", " + getTipoProducto().name() + ", " + getPrecio() + " €";
 	}
 
 }

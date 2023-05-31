@@ -124,7 +124,6 @@ public class PantallaPedirPlato extends JPanel {
 				}
 			}
 		});
-
 		JButton salirButton = new JButton("Salir");
 		salirButton.setBounds(444, 413, 89, 23);
 		add(salirButton);

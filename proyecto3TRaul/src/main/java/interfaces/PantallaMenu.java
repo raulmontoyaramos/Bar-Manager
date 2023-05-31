@@ -184,5 +184,25 @@ public class PantallaMenu extends PanelMadre {
 
 			}
 		});
+		
+		JButton salirButton = new JButton("Salir");
+		salirButton.setBounds(401, 343, 89, 23);
+		add(salirButton);
+		
+		salirButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaLogin.class);
+			}
+		});
+		
+		JButton editarTrabajadorButton = new JButton("Editar trabajador");
+		editarTrabajadorButton.setBounds(20, 275, 175, 23);
+		add(editarTrabajadorButton);
+		
+		editarTrabajadorButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla(PantallaEditarTrabajador.class);
+			}
+		});
 	}
 }

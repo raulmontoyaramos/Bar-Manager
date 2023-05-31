@@ -35,7 +35,7 @@ create database tpv;
 -- Usar la base de datos creada
 use tpv;
 
-drop table Trabajador;
+-- drop table Trabajador;
 -- Crear tabla Trabajador
 CREATE TABLE Trabajador (
     email VARCHAR(255) PRIMARY KEY,

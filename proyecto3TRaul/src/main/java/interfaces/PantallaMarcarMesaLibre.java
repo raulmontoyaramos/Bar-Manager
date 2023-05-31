@@ -30,23 +30,23 @@ public class PantallaMarcarMesaLibre extends JPanel {
 	public PantallaMarcarMesaLibre(Ventana v) {
 		this.ventana = v;
 		setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Mesas ocupadas : ");
 		lblNewLabel.setBounds(10, 29, 46, 14);
 		add(lblNewLabel);
-		
+
 		final JList<Mesa> listaMesasMarcarLibre = new JList<Mesa>();
 		listaMesasMarcarLibre.setBounds(38, 54, 283, 223);
 		add(listaMesasMarcarLibre);
 		listaMesasMarcarLibre.setModel(modelMesasOcupadas);
-		
+
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
 		columnasSelect.add("numero");
 		columnasSelect.add("capacidad");
 		columnasSelect.add("estaOcupada");
 		HashMap<String, Object> restricciones = new HashMap<String, Object>();
 		restricciones.put("estaOcupada", 1);
-		
+
 		try {
 			ArrayList<Object> mesasConsultar = DAO.consultar("Mesa", columnasSelect, restricciones);
 			ArrayList<Mesa> mesas = new ArrayList<Mesa>();
@@ -69,11 +69,11 @@ public class PantallaMarcarMesaLibre extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JButton marcarLibreButton = new JButton("Marcar libre");
 		marcarLibreButton.setBounds(331, 200, 109, 23);
 		add(marcarLibreButton);
-		
+
 		marcarLibreButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Mesa m = listaMesasMarcarLibre.getSelectedValue();
@@ -81,7 +81,8 @@ public class PantallaMarcarMesaLibre extends JPanel {
 				camposMarcarLibre.put("estaOcupada", 0);
 				HashMap<String, Object> restricciones = new HashMap<String, Object>();
 				restricciones.put("estaOcupada", 1);
-				
+				restricciones.put("numero", m.getNumero());
+
 				try {
 					DAO.actualizar("Mesa", camposMarcarLibre, restricciones);
 					modelMesasOcupadas.removeElement(m);
@@ -95,11 +96,11 @@ public class PantallaMarcarMesaLibre extends JPanel {
 				}
 			}
 		});
-		
+
 		JButton salirButton = new JButton("Salir");
 		salirButton.setBounds(331, 245, 89, 23);
 		add(salirButton);
-		
+
 		salirButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla(PantallaMenu.class);

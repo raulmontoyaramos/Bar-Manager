@@ -30,6 +30,7 @@ public class PantallaPlatosPedidos extends JPanel {
 		botonSalir.setBounds(408, 370, 89, 23);
 		add(botonSalir);
 		
+		//hacer una consulta igual que para sacar el precio total en la pantalla pedir platos.
 		botonSalir.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla(PantallaMenu.class);
