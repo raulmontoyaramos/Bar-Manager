@@ -59,8 +59,8 @@ public class Main {
 		
 //		trabajador.consultarTipoComida(tablon);
 		
-		System.out.println(trabajador.consultarBebidas());
-		System.out.println(trabajador.consultarEntrantes());
+//		System.out.println(trabajador.consultarBebidas());
+//		System.out.println(trabajador.consultarEntrantes());
 //		trabajador.añadirMesa(mesa1);
 //		trabajador.añadirMesa(mesa2);
 //		trabajador.consultarMesasOcupadas(mesa2);

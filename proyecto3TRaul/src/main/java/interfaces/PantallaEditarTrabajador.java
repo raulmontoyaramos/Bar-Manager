@@ -5,6 +5,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import clases.Trabajador;
+import excepciones.CampoVacioException;
 import utils.DAO;
 
 import java.awt.Font;
@@ -20,8 +21,8 @@ import javax.swing.JButton;
 public class PantallaEditarTrabajador extends JPanel {
 
 	private Ventana ventana;
-	private JTextField campoNombreRegistro;
 	private JTextField campoEmailRegistro;
+	private JTextField campoNombreRegistro;
 	private JTextField campoTelefonoRegistro;
 	private JTextField campoEmailInicioSesion;
 	private JPasswordField campoContrasenia;
@@ -40,11 +41,11 @@ public class PantallaEditarTrabajador extends JPanel {
 		add(cartelRegistro);
 
 		JLabel labelNombreRegistro = new JLabel("Nombre :");
-		labelNombreRegistro.setBounds(57, 109, 56, 14);
+		labelNombreRegistro.setBounds(57, 134, 56, 14);
 		add(labelNombreRegistro);
 
 		JLabel labelEmailRegistro = new JLabel("Email :");
-		labelEmailRegistro.setBounds(57, 134, 46, 14);
+		labelEmailRegistro.setBounds(57, 109, 46, 14);
 		add(labelEmailRegistro);
 
 		JLabel labelContraseniaRegistro = new JLabel("Contrasenia :");
@@ -55,17 +56,17 @@ public class PantallaEditarTrabajador extends JPanel {
 		labelTelefonoRegistro.setBounds(57, 184, 56, 14);
 		add(labelTelefonoRegistro);
 
-		campoNombreRegistro = new JTextField();
-		campoNombreRegistro.setToolTipText("Ingresa aquí tu nombre");
-		campoNombreRegistro.setBounds(174, 106, 159, 20);
-		add(campoNombreRegistro);
-		campoNombreRegistro.setColumns(10);
-
 		campoEmailRegistro = new JTextField();
-		campoEmailRegistro.setToolTipText("Ingresa aquí tu email");
-		campoEmailRegistro.setBounds(174, 131, 159, 20);
+		campoEmailRegistro.setToolTipText("Ingresa aquí tu nombre");
+		campoEmailRegistro.setBounds(174, 106, 159, 20);
 		add(campoEmailRegistro);
 		campoEmailRegistro.setColumns(10);
+
+		campoNombreRegistro = new JTextField();
+		campoNombreRegistro.setToolTipText("Ingresa aquí tu email");
+		campoNombreRegistro.setBounds(174, 131, 159, 20);
+		add(campoNombreRegistro);
+		campoNombreRegistro.setColumns(10);
 
 		campoTelefonoRegistro = new JTextField();
 		campoTelefonoRegistro.setToolTipText("Ingresa aquí tu telefono");
@@ -78,8 +79,8 @@ public class PantallaEditarTrabajador extends JPanel {
 		campoContrasenia.setBounds(174, 156, 159, 20);
 		add(campoContrasenia);
 
-		campoEmailRegistro.setText(ventana.getTrabajadorLogado().getEmail());
-		campoNombreRegistro.setText(ventana.getTrabajadorLogado().getNombre());
+		campoNombreRegistro.setText(ventana.getTrabajadorLogado().getEmail());
+		campoEmailRegistro.setText(ventana.getTrabajadorLogado().getNombre());
 		campoContrasenia.setText(ventana.getTrabajadorLogado().getContraseña());
 		campoTelefonoRegistro.setText("" + ventana.getTrabajadorLogado().getTelefono());
 
@@ -89,24 +90,35 @@ public class PantallaEditarTrabajador extends JPanel {
 
 		aceptarButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				Trabajador trabajadorLogado = new Trabajador(campoEmailRegistro.getText(),
-						campoNombreRegistro.getText(), new String(campoContrasenia.getPassword()),
-						Integer.parseInt(campoTelefonoRegistro.getText()));
-				HashMap<String, Object> datosAActualizar = new HashMap<String, Object>();
-				datosAActualizar.put("email", campoEmailRegistro.getText());
-				datosAActualizar.put("nombre", campoNombreRegistro.getText());
-				datosAActualizar.put("contrasenia", new String(campoContrasenia.getPassword()));
-				datosAActualizar.put("telefono", campoTelefonoRegistro.getText());
-				HashMap<String, Object> restricciones = new HashMap<String, Object>();
-				restricciones.put("email", trabajadorLogado.getEmail());
+
 				try {
+					Trabajador trabajadorLogado = new Trabajador(campoNombreRegistro.getText(),
+							campoEmailRegistro.getText(), new String(campoContrasenia.getPassword()),
+							Integer.parseInt(campoTelefonoRegistro.getText()));
+
+					/*HashMap<String, Object> datosAActualizar = new HashMap<String, Object>();
+					datosAActualizar.put("email", campoEmailRegistro.getText());
+					datosAActualizar.put("nombre", campoNombreRegistro.getText());
+					datosAActualizar.put("contrasenia", new String(campoContrasenia.getPassword()));
+					datosAActualizar.put("telefono", campoTelefonoRegistro.getText());
+					HashMap<String, Object> restricciones = new HashMap<String, Object>();
+					restricciones.put("email", trabajadorLogado.getEmail());
+
 					DAO.actualizar("Trabajador", datosAActualizar, restricciones);
 					JOptionPane.showMessageDialog(ventana, "Informacion actualizada.", "Actualizar",
-							JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.INFORMATION_MESSAGE);*/
+					Trabajador.actualizarTrabajador(trabajadorLogado, campoNombreRegistro.getText(),
+							campoEmailRegistro.getText(), new String(campoContrasenia.getPassword()),
+							Integer.parseInt(campoTelefonoRegistro.getText()));
 					ventana.setTrabajadorLogado(trabajadorLogado);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (CampoVacioException e2) {
+					JOptionPane.showMessageDialog(ventana, e2.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e3) {
+					JOptionPane.showMessageDialog(ventana, "Tienes que indicar el telefono usando solo números",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

@@ -1,13 +1,15 @@
 package clases;
 
 import java.sql.SQLException;
-
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 import enumeraciones.Comidas;
+import enumeraciones.TipoProducto;
 import excepciones.CampoVacioException;
 import excepciones.UsuarioNoExisteException;
 import utils.DAO;
@@ -73,13 +75,29 @@ public class Trabajador {
 		return "\n\t -Nombre: " + this.nombre + "\n\t -Email: " + this.email + "\n\t -Telefono: " + this.telefono;
 	}
 
-	public static void añadirTrabajador(Trabajador t) throws SQLException {
-		DAO.insert("Trabajador", t.columnas());
-	}
-
 	public static void eliminarTrabajador(Trabajador t) {
 		try {
 			DAO.delete("Trabajador", t.columnas());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void actualizarTrabajador(Trabajador t, String nombre, String email, String contrasenia, int telefono)
+			throws SQLException, CampoVacioException {
+		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono == 0) {
+			throw new CampoVacioException();
+		}
+		try {
+			HashMap<String, Object> datosAActualizar = new HashMap<String, Object>();
+			datosAActualizar.put("email", email);
+			datosAActualizar.put("nombre", nombre);
+			datosAActualizar.put("contrasenia", contrasenia);
+			datosAActualizar.put("telefono", telefono);
+			HashMap<String, Object> restricciones = new HashMap<String, Object>();
+			restricciones.put("email", email);
+			DAO.actualizar("Trabajador", datosAActualizar, restricciones);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +108,6 @@ public class Trabajador {
 			throws SQLException, UsuarioNoExisteException, CampoVacioException {
 		if (email.isEmpty() || contrasenia.isEmpty()) {
 			throw new CampoVacioException();
-
 		}
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<>();
 		columnasSelect.add("email");
@@ -112,6 +129,43 @@ public class Trabajador {
 			Trabajador tResult = new Trabajador(emailResultado, nombre, contraseniaResultado, telefono);
 			return tResult;
 		}
+	}
+
+	public static void añadirTrabajador(Trabajador t, String email, String nombre, String contrasenia, int telefono)
+			throws SQLException, CampoVacioException {
+		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono == 0) {
+			throw new CampoVacioException();
+		}
+		DAO.insert("Trabajador", t.columnas());
+	}
+
+	public static void añadirProducto(String nombre, String precio, String tipoProducto)
+			throws SQLException, CampoVacioException, NumberFormatException {
+		if (nombre.isEmpty() || precio.isEmpty()) {
+			throw new CampoVacioException();
+		}
+		float precioF = Float.parseFloat(precio);
+
+		HashMap<String, Object> campos = new HashMap<>();
+		campos.put("nombre", nombre);
+		campos.put("precio", precioF);
+		campos.put("tipoProducto", tipoProducto);
+
+		DAO.insert("Producto", campos);
+	}
+
+	public static void añadirMesa(String numero, String capacidad) throws SQLException, CampoVacioException, NumberFormatException {
+		if (numero.isEmpty() || capacidad.isEmpty()) {
+			throw new CampoVacioException();
+		}
+		int numeroInt = Integer.parseInt(numero);
+		int capacidadInt = Integer.parseInt(capacidad);
+
+		LinkedHashMap<String, Object> campos = new LinkedHashMap<>();
+		campos.put("numero", numeroInt);
+		campos.put("capacidad", capacidadInt);
+		campos.put("estaOcupada", 0);
+		DAO.insert("Mesa", campos);
 	}
 
 	public void consultarTrabajadores(Trabajador t, String restriccion) {
@@ -228,55 +282,9 @@ public class Trabajador {
 		}
 	}
 
-	public void consultarTipoComida(Negocio n) {
-
-		System.out.println(n.getTipoComida());
-	}
-
-	public Menu consultarMenu() {
-		Menu menuConsult = new Menu();
-		return menuConsult;
-	}
-
 	public MenuDelDia consultarMenuDelDia() {
 		MenuDelDia menuDDConsult = new MenuDelDia();
 		return menuDDConsult;
 	}
 
-	public void añadirTipoComida(Negocio n, Comidas c) {
-//		n.setTipoComida(c);
-	}
-
-	public void eliminarTipoComida(Negocio n, Comidas c) {
-
-	}
-
-	public ArrayList<Bebida> consultarBebidas() {
-		MenuDelDia menuDDConsult = new MenuDelDia();
-
-		return menuDDConsult.getBebidas();
-	}
-
-	public ArrayList<Entrante> consultarEntrantes() {
-		Menu menuConsult = new Menu();
-		return menuConsult.getEntrantes();
-	}
-
-	public ArrayList<PrimerPlato> consultarPrimeros() {
-		MenuDelDia menuDDConsult = new MenuDelDia();
-
-		return menuDDConsult.getPrimeros();
-	}
-
-	public ArrayList<SegundoPlato> consultarSegundos() {
-		MenuDelDia menuDDConsult = new MenuDelDia();
-
-		return menuDDConsult.getSegundos();
-	}
-
-	public ArrayList<Postre> consultarPostre() {
-		MenuDelDia menuDDConsult = new MenuDelDia();
-
-		return menuDDConsult.getPostres();
-	}
 }

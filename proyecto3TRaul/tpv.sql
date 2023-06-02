@@ -60,7 +60,6 @@ VALUES ('p@', 'p', 'abc', 9527842), ('p2', 'pepe', 'vgmkosfjs', 98868);
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(20),
     precio FLOAT,
-    foto VARCHAR(255),
     tipoProducto VARCHAR(30)
 );
 
@@ -69,8 +68,10 @@ VALUES ('p@', 'p', 'abc', 9527842), ('p2', 'pepe', 'vgmkosfjs', 98868);
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	numero_mesa int,
     id_producto int,
-    foreign key (numero_mesa) references Mesa(numero),
+    foreign key (numero_mesa) references Mesa(numero)
+    ON DELETE CASCADE,
     foreign key (id_producto) references Producto(id)
+        ON DELETE CASCADE
 );
 
 insert into Mesa (numero, capacidad, estaOcupada)
@@ -78,25 +79,30 @@ VALUES (1, 4, true), (2, 2, true);
 insert into Mesa (numero, capacidad, estaOcupada)
 VALUES (3, 4, true);
 
-insert into Producto (nombre, precio, foto, tipoProducto)
-VALUES ('p', 4, 'vownow', 'BEBIDA'), ('p2', 5, 'vgmkosfjs', 'BEBIDA');
+insert into Producto (nombre, precio, tipoProducto)
+VALUES ('p', 4, 'BEBIDA'), ('p2', 5, 'BEBIDA'), ('p3', 6, 'PRIMER_PLATO');
 
 SELECT 
-    p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+    mp.id, p.id, p.nombre, p.precio, p.tipoProducto
 FROM
     Mesa_Producto mp
         INNER JOIN
-    Producto p ON mp.numero_mesa = 3;
+    Producto p ON mp.numero_mesa = 2
+GROUP BY mp.id;
+    
+    SELECT @@sql_mode;
+    -- 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+
     
     SELECT 
-    mp.numero_mesa, mp.id, mp.id_producto, p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+    mp.numero_mesa, mp.id, mp.id_producto, p.id, p.nombre, p.precio, p.tipoProducto
 FROM
     Mesa_Producto mp
         INNER JOIN
     Producto p ON mp.numero_mesa = 2 AND p.nombre = 'w';
     
     SELECT 
-    p.id, p.nombre, p.precio, p.foto, p.tipoProducto
+    p.id, p.nombre, p.precio, p.tipoProducto
 FROM
     Mesa_Producto mp
         INNER JOIN

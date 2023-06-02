@@ -47,31 +47,29 @@ public class PantallaMenuBar extends JPanel {
 		listaPlatos.setBounds(354, 36, 183, 245);
 		add(listaPlatos);
 		listaPlatos.setModel(modelPlatos);
-		
+
 		LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
 		columnasSelect.add("nombre");
 		columnasSelect.add("precio");
-		columnasSelect.add("foto");
 		columnasSelect.add("tipoProducto");
 		try {
 			ArrayList<Object> productosConsultar = DAO.consultar("Producto", columnasSelect,
 					new HashMap<String, Object>());
 			ArrayList<Producto> productos = new ArrayList<Producto>();
-			for (byte i = 0; i < productosConsultar.size(); i += 4) {
+			for (byte i = 0; i < productosConsultar.size(); i += 3) {
 				String nombre = (String) productosConsultar.get(i);
 				float precio = (int) productosConsultar.get(i + 1);
-				String foto = (String) productosConsultar.get(i + 2);
-				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 3));
-				Producto p = new Producto(nombre, precio, foto, tipoProducto);
+				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 2));
+				Producto p = new Producto(nombre, precio, tipoProducto);
 				productos.add(p);
 			}
 			System.out.println(productos);
 			for (Producto producto : productos) {
 				if (producto.getTipoProducto() == TipoProducto.BEBIDA) {
 
-					model.addElement(producto.getNombre() + ", " + producto.getPrecio());
+					model.addElement(producto.getNombre() + ", " + producto.getPrecio() + " €");
 				} else {
-					modelPlatos.addElement(producto.getNombre() + ", " + producto.getPrecio());
+					modelPlatos.addElement(producto.getNombre() + ", " + producto.getPrecio() + " €");
 
 				}
 			}
@@ -93,8 +91,6 @@ public class PantallaMenuBar extends JPanel {
 		JLabel lblNewLabel = new JLabel("Platos :");
 		lblNewLabel.setBounds(276, 50, 46, 14);
 		add(lblNewLabel);
-
-		
 
 	}
 }

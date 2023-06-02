@@ -27,16 +27,14 @@ public class Producto {
 
 //	-ImageIO: La clase ImageIO en Java proporciona métodos para leer y escribir imágenes en diferentes formatos, 
 //	como JPEG, PNG o GIF. Puede utilizar los métodos de ImageIO para cargar una imagen en memoria y trabajar con ella.
-	
+
 	private String nombre;
 	private float precio;
-	private String foto;
 	private TipoProducto tipoProducto;
 
-	public Producto(String nombre, float precio, String foto, TipoProducto tipoProducto) {
+	public Producto(String nombre, float precio, TipoProducto tipoProducto) {
 		this.nombre = nombre;
 		this.precio = precio;
-		this.foto = foto;
 		this.tipoProducto = tipoProducto;
 
 	}
@@ -57,14 +55,6 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 	public TipoProducto getTipoProducto() {
 		return tipoProducto;
 	}
@@ -75,8 +65,8 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -Foto: " + this.foto
-				+ "\n\t -Tipo de producto: " + this.tipoProducto;
+		return "\n\t -Nombre: " + this.nombre + "\n\t -Precio: " + this.precio + "\n\t -Tipo de producto: "
+				+ this.tipoProducto;
 	}
 
 	public static TipoProducto aTipoProducto(String tipo) {

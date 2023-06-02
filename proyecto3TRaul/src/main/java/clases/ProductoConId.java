@@ -6,8 +6,8 @@ public class ProductoConId extends Producto {
 
 	private Integer id;
 
-	public ProductoConId(Integer id, String nombre, float precio, String foto, TipoProducto tipoProducto) {
-		super(nombre, precio, foto, tipoProducto);
+	public ProductoConId(Integer id, String nombre, float precio, TipoProducto tipoProducto) {
+		super(nombre, precio, tipoProducto);
 
 		this.id = id;
 	}

@@ -106,18 +106,20 @@ public class PantallaLogin extends JPanel {
 		aceptarRegistro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String nombre = campoNombreRegistro.getText();
-				String email = campoEmailRegistro.getText();
-				String contrasenia = new String(campoContraseniaRegistro.getPassword());
-				String telefono = campoTelefonoRegistro.getText();
 
 				try {
-					// TODO: controlar que los campos no estén vacíos
+					// TODO: NO CONSIGO controlar que los campos no estén vacíos
 					// DAO.insert para trabajador lo haga en el constructor de trabajador con todos
 					// sus campos en vez de desde aquí
+					String nombre = campoNombreRegistro.getText();
+					String email = campoEmailRegistro.getText();
+					String contrasenia = new String(campoContraseniaRegistro.getPassword());
+					String telefono = campoTelefonoRegistro.getText();
+
 					Trabajador trabajadorLogado = new Trabajador(email, nombre, contrasenia,
 							Integer.parseInt(telefono));
-					Trabajador.añadirTrabajador(trabajadorLogado);
+					Trabajador.añadirTrabajador(trabajadorLogado, email, nombre, contrasenia,
+							Integer.parseInt(telefono));
 					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + trabajadorLogado.getNombre(),
 							"Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
 					ventana.setTrabajadorLogado(trabajadorLogado);
@@ -130,9 +132,12 @@ public class PantallaLogin extends JPanel {
 					JOptionPane.showMessageDialog(ventana, "No se pudo conectar a la base de datos", "Registro fallido",
 							JOptionPane.ERROR_MESSAGE);
 					System.out.println(e1.getMessage());
+				} catch (CampoVacioException e1) {
+					JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Registro fallido",
+							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e3) {
 					JOptionPane.showMessageDialog(ventana, "Tienes que poner el número de teléfono usando solo números",
-							"Numero de teléfono incorrecto", JOptionPane.ERROR_MESSAGE);
+							"Registro fallido", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 

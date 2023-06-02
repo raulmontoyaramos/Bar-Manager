@@ -72,14 +72,14 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 
 		marcarOcupadaButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				Mesa m = listaMesasMarcarLibre.getSelectedValue();
-				HashMap<String, Object> camposMarcarLibre = new HashMap<String, Object>();
-				camposMarcarLibre.put("estaOcupada", 1);
-				HashMap<String, Object> restricciones = new HashMap<String, Object>();
-				restricciones.put("estaOcupada", 0);
-				restricciones.put("numero", m.getNumero());
 
 				try {
+					Mesa m = listaMesasMarcarLibre.getSelectedValue();
+					HashMap<String, Object> camposMarcarLibre = new HashMap<String, Object>();
+					camposMarcarLibre.put("estaOcupada", 1);
+					HashMap<String, Object> restricciones = new HashMap<String, Object>();
+					restricciones.put("estaOcupada", 0);
+					restricciones.put("numero", m.getNumero());
 					DAO.actualizar("Mesa", camposMarcarLibre, restricciones);
 					modelMesasLibres.removeElement(m);
 					JOptionPane.showMessageDialog(ventana, "Mesa editada con exito.", "Mesa editada",
@@ -89,6 +89,9 @@ public class PantallaMarcarMesaOcupada extends JPanel {
 							"Error al editar la mesa, es posible que la mesa indicada no exista", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(ventana, "Inidique qué mesa quiere marcar primero", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

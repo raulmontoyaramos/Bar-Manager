@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 
+import excepciones.CampoVacioException;
+
 /**
  * Clase de acceso a bases de datos, abstracta, que permite hacer de forma
  * simple y sin preocuparse de la sintaxis SQL, las operaciones CRUD sobre una
@@ -49,8 +51,8 @@ public abstract class DAO {
 			String usuario = lector.readLine();
 			String password = lector.readLine();
 
-			connection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + puerto + "/" + nombreBD,
-					usuario, password);
+			connection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + puerto + "/" + nombreBD, usuario,
+					password);
 			return connection.createStatement();
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +79,7 @@ public abstract class DAO {
 //		return ret;
 //	}
 
-	public static int insert(String table, HashMap<String, Object> campos) throws SQLException {
+	public static int insert(String table, HashMap<String, Object> campos) throws SQLException, NumberFormatException {
 		Statement querier = connect();
 		// insert into cliente (email,nombre,contraseña) values
 		// ('prueba@email.es','aaa','123123');
@@ -192,35 +194,37 @@ public abstract class DAO {
 		return fila;
 	}
 	
+	
 
-	public static int actualizar(String tabla,HashMap<String,Object> datosAModificar, HashMap<String,Object> restricciones) throws SQLException {
-		String query="update "+tabla+" set ";
-		Iterator itm=datosAModificar.entrySet().iterator();
-		while(itm.hasNext()) {
-			Entry actual=(Entry)itm.next();
+	public static int actualizar(String tabla, HashMap<String, Object> datosAModificar,
+			HashMap<String, Object> restricciones) throws SQLException {
+		String query = "update " + tabla + " set ";
+		Iterator itm = datosAModificar.entrySet().iterator();
+		while (itm.hasNext()) {
+			Entry actual = (Entry) itm.next();
 			if (actual.getValue().getClass() != String.class && actual.getValue().getClass() != Character.class) {
-				query+=actual.getKey()+" = "+actual.getValue()+",";
-			}else {
-				query+=actual.getKey()+" = '"+actual.getValue()+"',";
+				query += actual.getKey() + " = " + actual.getValue() + ",";
+			} else {
+				query += actual.getKey() + " = '" + actual.getValue() + "',";
 			}
 		}
-		query=query.substring(0,query.length()-1)+" where ";
-		Iterator itr= restricciones.entrySet().iterator();
-		while(itr.hasNext()) {
-			Entry actual=(Entry)itr.next();
+		query = query.substring(0, query.length() - 1) + " where ";
+		Iterator itr = restricciones.entrySet().iterator();
+		while (itr.hasNext()) {
+			Entry actual = (Entry) itr.next();
 			if (actual.getValue().getClass() != String.class && actual.getValue().getClass() != Character.class) {
-				query+=actual.getKey()+" = "+actual.getValue()+" and ";
-			}else {
-				query+=actual.getKey()+" = '"+actual.getValue()+"' and ";
+				query += actual.getKey() + " = " + actual.getValue() + " and ";
+			} else {
+				query += actual.getKey() + " = '" + actual.getValue() + "' and ";
 			}
 		}
-		query=query.substring(0,query.length()-5);
-		
-		Statement smt=connect();
+		query = query.substring(0, query.length() - 5);
+
+		Statement smt = connect();
 		System.out.println(query);
-		int ret=smt.executeUpdate(query);
+		int ret = smt.executeUpdate(query);
 		disconnect(smt);
-		
+
 		return ret;
 	}
 }

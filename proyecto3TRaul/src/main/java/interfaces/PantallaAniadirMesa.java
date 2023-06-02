@@ -6,11 +6,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import clases.Mesa;
+import clases.Trabajador;
+import excepciones.CampoVacioException;
 import utils.DAO;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -52,25 +56,28 @@ public class PantallaAniadirMesa extends JPanel {
 		botonAniadir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String numero = campoNumero.getText();
-				String capacidad = campoCapacidad.getText();
-				String estaOcupada = campoCapacidad.getText();
-				Mesa m = new Mesa(Integer.parseInt(numero), Integer.parseInt(capacidad), Integer.parseInt(estaOcupada));
-
-				HashMap<String, Object> columnas = new HashMap<>();
-				columnas.put("numero", m.getNumero());
-				columnas.put("capacidad", m.getCapacidad());
-				columnas.put("estaOcupada", m.getEstaOcupada());
 
 				try {
-					DAO.insert("Mesa", columnas);
+					String numero = campoNumero.getText();
+					String capacidad = campoCapacidad.getText();
+
+					Trabajador.añadirMesa(numero, capacidad);
 					JOptionPane.showMessageDialog(ventana, "Mesa añadida con exito", "Mesa añadida",
 							JOptionPane.INFORMATION_MESSAGE);
+				} catch (SQLIntegrityConstraintViolationException e4) {
+					JOptionPane.showMessageDialog(ventana,
+							"Error al añadir la mesa, ya existe una mesa con ese número, ingrese otro diferente",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(ventana,
 							"Error al añadir la mesa, es posible que haya rellenado un campo con un valor invalido",
 							"Error", JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
+				} catch (CampoVacioException e2) {
+					JOptionPane.showMessageDialog(ventana, e2.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e3) {
+					JOptionPane.showMessageDialog(ventana, "Existe al menos un campo que admite solo números", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

@@ -40,22 +40,20 @@ public class PantallaEliminarProducto extends JPanel {
 		add(listaProductos);
 		listaProductos.setModel(model);
 
-		LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
-		columnasSelect.add("id");
-		columnasSelect.add("nombre");
-		columnasSelect.add("precio");
-		columnasSelect.add("foto");
-		columnasSelect.add("tipoProducto");
 		try {
+			LinkedHashSet<String> columnasSelect = new LinkedHashSet<String>();
+			columnasSelect.add("id");
+			columnasSelect.add("nombre");
+			columnasSelect.add("precio");
+			columnasSelect.add("tipoProducto");
 			ArrayList<Object> productosConsultar = DAO.consultar("Producto", columnasSelect,
 					new HashMap<String, Object>());
-			for (byte i = 0; i < productosConsultar.size(); i += 5) {
+			for (byte i = 0; i < productosConsultar.size(); i += 4) {
 				Integer id = (Integer) productosConsultar.get(i);
 				String nombre = (String) productosConsultar.get(i + 1);
 				float precio = (int) productosConsultar.get(i + 2);
-				String foto = (String) productosConsultar.get(i + 3);
-				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 4));
-				ProductoConId p = new ProductoConId(id, nombre, precio, foto, tipoProducto);
+				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 3));
+				ProductoConId p = new ProductoConId(id, nombre, precio, tipoProducto);
 				productos.add(p);
 				model.addElement(p);
 			}
@@ -86,11 +84,11 @@ public class PantallaEliminarProducto extends JPanel {
 
 		botonEliminar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				ProductoConId p = listaProductos.getSelectedValue();
-				HashMap<String, Object> camposEliminar = new HashMap<String, Object>();
-				camposEliminar.put("id", p.getId());
 
 				try {
+					ProductoConId p = listaProductos.getSelectedValue();
+					HashMap<String, Object> camposEliminar = new HashMap<String, Object>();
+					camposEliminar.put("id", p.getId());
 					DAO.delete("Producto", camposEliminar);
 					model.removeElement(p);
 					JOptionPane.showMessageDialog(ventana, "Producto eliminado con exito", "Producto eliminado",

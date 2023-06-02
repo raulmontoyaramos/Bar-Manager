@@ -83,18 +83,16 @@ public class PantallaPedirPlato extends JPanel {
 		columnasSelectProducto.add("id");
 		columnasSelectProducto.add("nombre");
 		columnasSelectProducto.add("precio");
-		columnasSelectProducto.add("foto");
 		columnasSelectProducto.add("tipoProducto");
 		try {
 			ArrayList<Object> productosConsultar = DAO.consultar("Producto", columnasSelectProducto,
 					new HashMap<String, Object>());
-			for (byte i = 0; i < productosConsultar.size(); i += 5) {
+			for (byte i = 0; i < productosConsultar.size(); i += 4) {
 				Integer id = (Integer) productosConsultar.get(i);
 				String nombre = (String) productosConsultar.get(i + 1);
 				float precio = (int) productosConsultar.get(i + 2);
-				String foto = (String) productosConsultar.get(i + 3);
-				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 4));
-				ProductoConId p = new ProductoConId(id, nombre, precio, foto, tipoProducto);
+				TipoProducto tipoProducto = Producto.aTipoProducto((String) productosConsultar.get(i + 3));
+				ProductoConId p = new ProductoConId(id, nombre, precio, tipoProducto);
 				productos.add(p);
 				model.addElement(p);
 			}
@@ -112,15 +110,19 @@ public class PantallaPedirPlato extends JPanel {
 		aniadirButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HashMap<String, Object> campos = new HashMap<String, Object>();
-				campos.put("numero_mesa", ((Mesa) comboBox.getSelectedItem()).getNumero());
-				campos.put("id_producto", ((ProductoConId) listaPlatos.getSelectedValue()).getId());
+
 				try {
+					HashMap<String, Object> campos = new HashMap<String, Object>();
+					campos.put("numero_mesa", ((Mesa) comboBox.getSelectedItem()).getNumero());
+					campos.put("id_producto", ((ProductoConId) listaPlatos.getSelectedValue()).getId());
 					DAO.insert("Mesa_Producto", campos);
 					JOptionPane.showMessageDialog(ventana, "Plato pedido", "Pedir plato",
 							JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(ventana, "Debe debe seleccionar una mesa y plato primero", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -140,35 +142,40 @@ public class PantallaPedirPlato extends JPanel {
 
 		pedirCuentaButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				LinkedHashSet<String> columnasSelectJoin = new LinkedHashSet<String>();
-				columnasSelectJoin.add("p.id");
-				columnasSelectJoin.add("p.nombre");
-				columnasSelectJoin.add("p.precio");
-				columnasSelectJoin.add("p.foto");
-				columnasSelectJoin.add("p.tipoProducto");
+
 				try {
+					LinkedHashSet<String> columnasSelectJoin = new LinkedHashSet<String>();
+					columnasSelectJoin.add("p.id");
+					columnasSelectJoin.add("p.nombre");
+					columnasSelectJoin.add("p.precio");
+					columnasSelectJoin.add("p.tipoProducto");
 					ArrayList<Object> consultaJoin = DAO.consultar(
 							"Mesa_Producto mp INNER JOIN Producto p on mp.numero_mesa = "
 									+ ((Mesa) comboBox.getSelectedItem()).getNumero(),
 							columnasSelectJoin, new HashMap<String, Object>());
 					ArrayList<ProductoConId> platosPedidos = new ArrayList<ProductoConId>();
 					float precioTotal = 0;
-					for (byte i = 0; i < consultaJoin.size(); i += 5) {
+					for (byte i = 0; i < consultaJoin.size(); i += 4) {
 						Integer id = (Integer) consultaJoin.get(i);
 						String nombre = (String) consultaJoin.get(i + 1);
 						float precio = (int) consultaJoin.get(i + 2);
-						String foto = (String) consultaJoin.get(i + 3);
-						TipoProducto tipoProducto = Producto.aTipoProducto((String) consultaJoin.get(i + 4));
-						ProductoConId p = new ProductoConId(id, nombre, precio, foto, tipoProducto);
+						TipoProducto tipoProducto = Producto.aTipoProducto((String) consultaJoin.get(i + 3));
+						ProductoConId p = new ProductoConId(id, nombre, precio, tipoProducto);
 						platosPedidos.add(p);
 						precioTotal += precio;
-						System.out.println("Mesa : ");
+						System.out.println("Mesa : " + ((Mesa) comboBox.getSelectedItem()).getNumero() + " id : " + id
+								+ " precio : " + precio);
 					}
+					System.out.println(
+							"Mesa : " + ((Mesa) comboBox.getSelectedItem()).getNumero() + " precio : " + precioTotal);
 					JOptionPane.showMessageDialog(ventana, "Precio total : " + precioTotal, "Cuenta",
 							JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(ventana, "Debe haber pedido plato/s primero", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

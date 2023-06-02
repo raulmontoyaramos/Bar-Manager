@@ -6,7 +6,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import clases.Producto;
+import clases.Trabajador;
 import enumeraciones.TipoProducto;
+import excepciones.CampoVacioException;
 import utils.DAO;
 
 import java.awt.event.MouseAdapter;
@@ -22,7 +24,6 @@ import javax.swing.JComboBox;
 public class PantallaAñadirProducto extends JPanel {
 	private JTextField campoNombre;
 	private JTextField campoPrecio;
-	private JTextField campoFoto;
 	private Ventana ventana;
 
 	public PantallaAñadirProducto(Ventana v) {
@@ -40,12 +41,8 @@ public class PantallaAñadirProducto extends JPanel {
 		lblNewLabel_1_1.setBounds(31, 60, 81, 14);
 		add(lblNewLabel_1_1);
 
-		JLabel lblNewLabel_1_1_1 = new JLabel("Foto");
-		lblNewLabel_1_1_1.setBounds(31, 85, 81, 14);
-		add(lblNewLabel_1_1_1);
-
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Tipo de producto");
-		lblNewLabel_1_1_1_1.setBounds(31, 110, 94, 14);
+		lblNewLabel_1_1_1_1.setBounds(31, 85, 94, 14);
 		add(lblNewLabel_1_1_1_1);
 
 		campoNombre = new JTextField();
@@ -58,13 +55,8 @@ public class PantallaAñadirProducto extends JPanel {
 		campoPrecio.setBounds(116, 60, 153, 20);
 		add(campoPrecio);
 
-		campoFoto = new JTextField();
-		campoFoto.setColumns(10);
-		campoFoto.setBounds(116, 82, 153, 20);
-		add(campoFoto);
-
 		final JComboBox<String> tiposProductosComboBox = new JComboBox<String>();
-		tiposProductosComboBox.setBounds(116, 106, 153, 22);
+		tiposProductosComboBox.setBounds(116, 85, 153, 22);
 		add(tiposProductosComboBox);
 		for (TipoProducto tipo : TipoProducto.values()) {
 			tiposProductosComboBox.addItem(tipo.name());
@@ -76,22 +68,13 @@ public class PantallaAñadirProducto extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// mas adelante meto los atributos de Producto
-				String nombre = campoNombre.getText();
-				String precio = campoPrecio.getText();
-				String foto = campoFoto.getText();
-				String tipoProducto = (String) tiposProductosComboBox.getSelectedItem();
-
-				Producto p1 = new Producto(nombre, Float.parseFloat(precio), foto,
-						Producto.aTipoProducto(tipoProducto));
-
-				HashMap<String, Object> columnas = new HashMap<>();
-				columnas.put("nombre", p1.getNombre());
-				columnas.put("precio", p1.getPrecio());
-				columnas.put("foto", p1.getFoto());
-				columnas.put("tipoProducto", p1.getTipoProducto().name());
-
 				try {
-					DAO.insert("Producto", columnas);
+					String nombre = campoNombre.getText();
+					String precio = campoPrecio.getText();
+					String tipoProducto = (String) tiposProductosComboBox.getSelectedItem();
+
+					Trabajador.añadirProducto(nombre, precio, tipoProducto);
+					
 					JOptionPane.showMessageDialog(ventana, "Producto añadido con exito", "Producto añadido",
 							JOptionPane.INFORMATION_MESSAGE);
 
@@ -100,6 +83,12 @@ public class PantallaAñadirProducto extends JPanel {
 							"Error al añadir el producto, es posible que haya rellenado un campo con un valor invalido",
 							"Error", JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
+				} catch (CampoVacioException e2) {
+					JOptionPane.showMessageDialog(ventana, e2.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e3) {
+					JOptionPane.showMessageDialog(ventana, "Tienes que indicar el precio usando solo números",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
