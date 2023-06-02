@@ -176,57 +176,8 @@ public class Trabajador {
 		DAO.insert("Mesa", campos);
 	}
 
-	public void añadirMesa(Mesa m) {
-		try {
-			DAO.insert("Mesa", m.columnas());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	public void eliminarMesa(Mesa m) {
-		try {
-			DAO.delete("Mesa", m.columnas());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	public void consultarMesasLibres(Mesa m) {
-		ArrayList<Object> mesas;
-		HashMap<String, Object> restricciones = new HashMap<>();
-		restricciones.put("estaOcupada", 0);
-		try {
-			mesas = DAO.consultar("Mesa", new LinkedHashSet<String>(m.columnas().keySet()), restricciones);
-			for (byte i = 0; i < mesas.size(); i++) {
-				System.out.println(mesas.get(i));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	public void consultarMesasOcupadas(Mesa m) {
-		ArrayList<Object> mesas;
-		HashMap<String, Object> restricciones = new HashMap<>();
-		restricciones.put("estaOcupada", 1);
-		try {
-			mesas = DAO.consultar("Mesa", new LinkedHashSet<String>(m.columnas().keySet()), restricciones);
-			for (byte i = 0; i < mesas.size(); i++) {
-				System.out.println(mesas.get(i));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public MenuDelDia consultarMenuDelDia() {
-		MenuDelDia menuDDConsult = new MenuDelDia();
-		return menuDDConsult;
-	}
 
 }
