@@ -92,24 +92,9 @@ public class PantallaEditarTrabajador extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 
 				try {
-					Trabajador trabajadorLogado = new Trabajador(campoNombreRegistro.getText(),
+					Trabajador trabajadorLogado = Trabajador.actualizarTrabajador(campoNombreRegistro.getText(),
 							campoEmailRegistro.getText(), new String(campoContrasenia.getPassword()),
-							Integer.parseInt(campoTelefonoRegistro.getText()));
-
-					/*HashMap<String, Object> datosAActualizar = new HashMap<String, Object>();
-					datosAActualizar.put("email", campoEmailRegistro.getText());
-					datosAActualizar.put("nombre", campoNombreRegistro.getText());
-					datosAActualizar.put("contrasenia", new String(campoContrasenia.getPassword()));
-					datosAActualizar.put("telefono", campoTelefonoRegistro.getText());
-					HashMap<String, Object> restricciones = new HashMap<String, Object>();
-					restricciones.put("email", trabajadorLogado.getEmail());
-
-					DAO.actualizar("Trabajador", datosAActualizar, restricciones);
-					JOptionPane.showMessageDialog(ventana, "Informacion actualizada.", "Actualizar",
-							JOptionPane.INFORMATION_MESSAGE);*/
-					Trabajador.actualizarTrabajador(trabajadorLogado, campoNombreRegistro.getText(),
-							campoEmailRegistro.getText(), new String(campoContrasenia.getPassword()),
-							Integer.parseInt(campoTelefonoRegistro.getText()));
+							campoTelefonoRegistro.getText());
 					ventana.setTrabajadorLogado(trabajadorLogado);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

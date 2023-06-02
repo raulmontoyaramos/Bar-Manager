@@ -84,9 +84,9 @@ public class Trabajador {
 		}
 	}
 
-	public static void actualizarTrabajador(Trabajador t, String nombre, String email, String contrasenia, int telefono)
-			throws SQLException, CampoVacioException {
-		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono == 0) {
+	public static Trabajador actualizarTrabajador(String nombre, String email, String contrasenia, String telefono)
+			throws SQLException, CampoVacioException, NumberFormatException {
+		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono.isEmpty()) {
 			throw new CampoVacioException();
 		}
 		try {
@@ -94,14 +94,29 @@ public class Trabajador {
 			datosAActualizar.put("email", email);
 			datosAActualizar.put("nombre", nombre);
 			datosAActualizar.put("contrasenia", contrasenia);
-			datosAActualizar.put("telefono", telefono);
+			datosAActualizar.put("telefono", Integer.parseInt(telefono));
 			HashMap<String, Object> restricciones = new HashMap<String, Object>();
 			restricciones.put("email", email);
 			DAO.actualizar("Trabajador", datosAActualizar, restricciones);
+			return new Trabajador(email, nombre, contrasenia, Integer.parseInt(telefono));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public static Trabajador añadirTrabajador(String email, String nombre, String contrasenia, String telefono)
+			throws SQLException, CampoVacioException, NumberFormatException {
+		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono.isEmpty()) {
+			throw new CampoVacioException();
+		}
+		HashMap<String, Object> columnas = new HashMap<String, Object>();
+		columnas.put("email", email);
+		columnas.put("nombre", nombre);
+		columnas.put("contrasenia", contrasenia);
+		columnas.put("telefono", Integer.parseInt(telefono));
+		DAO.insert("Trabajador", columnas);
+		return new Trabajador(email, nombre, contrasenia, Integer.parseInt(telefono));
 	}
 
 	public static Trabajador consultarTrabajador(String email, String contrasenia)
@@ -131,14 +146,6 @@ public class Trabajador {
 		}
 	}
 
-	public static void añadirTrabajador(Trabajador t, String email, String nombre, String contrasenia, int telefono)
-			throws SQLException, CampoVacioException {
-		if (email.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || telefono == 0) {
-			throw new CampoVacioException();
-		}
-		DAO.insert("Trabajador", t.columnas());
-	}
-
 	public static void añadirProducto(String nombre, String precio, String tipoProducto)
 			throws SQLException, CampoVacioException, NumberFormatException {
 		if (nombre.isEmpty() || precio.isEmpty()) {
@@ -154,7 +161,8 @@ public class Trabajador {
 		DAO.insert("Producto", campos);
 	}
 
-	public static void añadirMesa(String numero, String capacidad) throws SQLException, CampoVacioException, NumberFormatException {
+	public static void añadirMesa(String numero, String capacidad)
+			throws SQLException, CampoVacioException, NumberFormatException {
 		if (numero.isEmpty() || capacidad.isEmpty()) {
 			throw new CampoVacioException();
 		}
@@ -166,46 +174,6 @@ public class Trabajador {
 		campos.put("capacidad", capacidadInt);
 		campos.put("estaOcupada", 0);
 		DAO.insert("Mesa", campos);
-	}
-
-	public void consultarTrabajadores(Trabajador t, String restriccion) {
-		Scanner sc = new Scanner(System.in);
-		String respuesta;
-		do {
-			System.out.println("Quieres aplicar una restriccion (filtro) a la consulta?(responde con Si o No)");
-			respuesta = sc.nextLine();
-			if (respuesta.equals("Si")) {
-				System.out.println("Dime el valor de la restriccion para hacer la consulta");
-				String valor = sc.nextLine();
-				HashMap<String, Object> restricciones = new HashMap<String, Object>();
-				restricciones.put(restriccion, valor);
-				try {
-					ArrayList<Object> trabajadores = DAO.consultar("Trabajador",
-							new LinkedHashSet<String>(t.columnas().keySet()), restricciones);
-					for (byte i = 0; i < trabajadores.size(); i++) {
-						System.out.println(trabajadores.get(i));
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (!(respuesta.equals("Si") || respuesta.equals("No"))) {
-				System.out.println("Respuesta incorrecta, debes responder con 'Si' o 'No'");
-			}
-			if (respuesta.equals("No")) {
-				try {
-					ArrayList<Object> trabajadores = DAO.consultar("Trabajador",
-							new LinkedHashSet<String>(t.columnas().keySet()), new HashMap<String, Object>());
-					for (byte i = 0; i < trabajadores.size(); i++) {
-						System.out.println(trabajadores.get(i));
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		} while (!(respuesta.equals("Si") || respuesta.equals("No")));
 	}
 
 	public void añadirMesa(Mesa m) {
@@ -225,32 +193,6 @@ public class Trabajador {
 			e.printStackTrace();
 		}
 	}
-
-//	public void marcarMesaLibre(Mesa m) {
-//		m.setEstaOcupada(false);
-//		HashMap<String, Object> restricciones = new HashMap<String, Object>();
-//		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
-//		valoresNuevos.put("estaOcupada", false);
-//		try {
-//			DAO.actualizar("Mesa", valoresNuevos, restricciones);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
-//	public void marcarMesaOcupada(Mesa m) {
-//		m.setEstaOcupada(true);
-//		HashMap<String, Object> restricciones = new HashMap<String, Object>();
-//		HashMap<String, Object> valoresNuevos = new HashMap<String, Object>();
-//		valoresNuevos.put("estaOcupada", true);
-//		try {
-//			DAO.actualizar("Mesa", valoresNuevos, restricciones);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	public void consultarMesasLibres(Mesa m) {
 		ArrayList<Object> mesas;

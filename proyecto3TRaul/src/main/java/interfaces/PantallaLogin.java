@@ -116,12 +116,9 @@ public class PantallaLogin extends JPanel {
 					String contrasenia = new String(campoContraseniaRegistro.getPassword());
 					String telefono = campoTelefonoRegistro.getText();
 
-					Trabajador trabajadorLogado = new Trabajador(email, nombre, contrasenia,
-							Integer.parseInt(telefono));
-					Trabajador.añadirTrabajador(trabajadorLogado, email, nombre, contrasenia,
-							Integer.parseInt(telefono));
-					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + trabajadorLogado.getNombre(),
-							"Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+					Trabajador trabajadorLogado = Trabajador.añadirTrabajador(email, nombre, contrasenia, telefono);
+					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + nombre, "Registro exitoso",
+							JOptionPane.INFORMATION_MESSAGE);
 					ventana.setTrabajadorLogado(trabajadorLogado);
 					ventana.cambiarAPantalla(PantallaMenu.class);
 
